@@ -23,6 +23,7 @@ import CRM from './pages/CRM'
 import Billing from './pages/Billing'
 import Settings from './pages/Settings'
 import Login from './pages/Login'
+import Verify from './pages/Verify'
 
 // Auth Context
 const AuthContext = createContext()
@@ -177,10 +178,11 @@ function App() {
         <DataContext.Provider value={{ data, setData }}>
           <div className={darkMode ? 'dark' : ''}>
             <Routes>
-              {/* Public Route */}
+              {/* Public Routes */}
               <Route path="/login" element={
                 user ? <Navigate to="/" replace /> : <Login />
               } />
+              <Route path="/verify" element={<Verify />} />
               
               {/* Protected Routes */}
               <Route path="/" element={

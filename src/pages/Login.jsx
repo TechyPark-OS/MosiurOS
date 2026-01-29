@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Mail, ArrowRight, CheckCircle, Loader2, Server } from 'lucide-react'
+import { Mail, ArrowRight, CheckCircle, Loader2, AlertCircle } from 'lucide-react'
 import { useAuth } from '../App'
+
+const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ixdmg3hbaaxfll447b4dd-eeaad10b.us1.manus.computer';
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [magicLinkSent, setMagicLinkSent] = useState(false)
   const [loadingProvider, setLoadingProvider] = useState(null)
+  const [error, setError] = useState('')
   const navigate = useNavigate()
   const { login } = useAuth()
 
@@ -16,15 +19,35 @@ export default function Login() {
     if (!email) return
     
     setIsLoading(true)
-    // Simulate sending magic link
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setMagicLinkSent(true)
-    setIsLoading(false)
+    setError('')
+
+    try {
+      const response = await fetch(`${API_URL}/api/auth/magic-link`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send magic link')
+      }
+
+      setMagicLinkSent(true)
+    } catch (err) {
+      console.error('Magic link error:', err)
+      setError(err.message || 'Failed to send magic link. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleSocialLogin = async (provider) => {
     setLoadingProvider(provider)
-    // Simulate OAuth flow
+    // Simulate OAuth flow (in production, redirect to OAuth provider)
     await new Promise(resolve => setTimeout(resolve, 1500))
     
     // Mock successful login
@@ -41,19 +64,6 @@ export default function Login() {
     navigate('/')
   }
 
-  const handleVerifyMagicLink = () => {
-    // Simulate verifying magic link (in real app, this would be done via URL token)
-    login({
-      id: 1,
-      name: 'John Admin',
-      email: email,
-      avatar: null,
-      role: 'Admin',
-      provider: 'email'
-    })
-    navigate('/')
-  }
-
   if (magicLinkSent) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
@@ -63,23 +73,25 @@ export default function Login() {
               <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
             </div>
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Check your email</h2>
-            <p className="text-slate-600 dark:text-slate-400 mb-6">
-              We've sent a magic link to <span className="font-medium text-slate-900 dark:text-white">{email}</span>
+            <p className="text-slate-600 dark:text-slate-400 mb-2">
+              We've sent a magic link to
             </p>
+            <p className="font-medium text-slate-900 dark:text-white mb-4">{email}</p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
               Click the link in the email to sign in to your account. The link will expire in 10 minutes.
             </p>
             
-            {/* Demo button to simulate clicking the magic link */}
-            <button
-              onClick={handleVerifyMagicLink}
-              className="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-xl transition-colors mb-4"
-            >
-              Demo: Simulate Magic Link Click
-            </button>
+            <div className="bg-slate-50 dark:bg-slate-700/50 rounded-xl p-4 mb-6">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                <strong>Tip:</strong> Check your spam folder if you don't see the email within a few minutes.
+              </p>
+            </div>
             
             <button
-              onClick={() => setMagicLinkSent(false)}
+              onClick={() => {
+                setMagicLinkSent(false)
+                setEmail('')
+              }}
               className="text-sm text-primary-600 hover:text-primary-700 font-medium"
             >
               Use a different email
@@ -144,6 +156,14 @@ export default function Login() {
 
           {/* Login Card */}
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border border-slate-200 dark:border-slate-700">
+            {/* Error Message */}
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-start gap-3">
+                <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+              </div>
+            )}
+
             {/* Social Login Buttons */}
             <div className="space-y-3 mb-6">
               {/* Google Login */}

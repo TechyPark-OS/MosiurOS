@@ -24,3 +24,38 @@
 [2026-01-29T17:22:19.428Z] 
 [2026-01-29T17:22:19.428Z] ➜  Local:   http://localhost:5173/
 [2026-01-29T17:22:19.429Z] ➜  Network: http://169.254.0.21:5173/
+[2026-01-29T17:46:13.037Z] 12:46:13 PM [vite] hmr update /src/pages/Login.jsx, /src/index.css
+[2026-01-29T17:46:19.802Z] 12:46:19 PM [vite] hmr update /src/App.jsx, /src/index.css
+[2026-01-29T17:46:20.057Z] 12:46:20 PM [vite] hmr invalidate /src/App.jsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2026-01-29T17:46:20.058Z] 12:46:20 PM [vite] page reload src/App.jsx
+[2026-01-29T17:59:49.683Z] Dev server process group stopped
+[2026-01-29T17:59:49.703Z] ELIFECYCLE  Command failed.
+[2026-01-29T17:59:49.707Z] Dev server exited with code -15
+[2026-01-29T17:59:52.691Z] Starting dev server with command: pnpm run dev
+[2026-01-29T17:59:52.979Z] 
+[2026-01-29T17:59:52.980Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-01-29T17:59:52.981Z] > vite
+[2026-01-29T17:59:52.981Z] 
+[2026-01-29T17:59:53.178Z] Re-optimizing dependencies because lockfile has changed
+[2026-01-29T17:59:53.202Z] 
+[2026-01-29T17:59:53.203Z] VITE v5.4.21  ready in 193 ms
+[2026-01-29T17:59:53.203Z] 
+[2026-01-29T17:59:53.203Z] ➜  Local:   http://localhost:5173/
+[2026-01-29T17:59:53.204Z] ➜  Network: http://169.254.0.21:5173/
+[2026-01-29T18:00:50.013Z] 1:00:50 PM [vite] hmr update /src/pages/Login.jsx, /src/index.css
+[2026-01-29T18:00:55.288Z] 1:00:55 PM [vite] hmr update /src/pages/Verify.jsx, /src/index.css
+[2026-01-29T18:01:09.689Z] 1:01:09 PM [vite] hmr update /src/pages/Login.jsx, /src/index.css
+[2026-01-29T18:01:15.622Z] 1:01:15 PM [vite] hmr update /src/pages/Verify.jsx, /src/index.css
+[2026-01-29T18:01:49.383Z] Dev server process group stopped
+[2026-01-29T18:01:49.401Z] ELIFECYCLE  Command failed.
+[2026-01-29T18:01:49.405Z] Dev server exited with code -15
+[2026-01-29T18:01:52.408Z] Starting dev server with command: pnpm run dev
+[2026-01-29T18:01:52.698Z] 
+[2026-01-29T18:01:52.699Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-01-29T18:01:52.699Z] > vite
+[2026-01-29T18:01:52.700Z] 
+[2026-01-29T18:01:52.907Z] 
+[2026-01-29T18:01:52.908Z] VITE v5.4.21  ready in 179 ms
+[2026-01-29T18:01:52.908Z] 
+[2026-01-29T18:01:52.908Z] ➜  Local:   http://localhost:5173/
+[2026-01-29T18:01:52.909Z] ➜  Network: http://169.254.0.21:5173/

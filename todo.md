@@ -58,3 +58,11 @@
 - [x] Protected routes (redirect to login if not authenticated) (redirect to login if not authenticated)
 - [x] Magic link email input and verification page
 - [x] Logout functionality
+
+## Email Service Integration
+- [x] Set up ZeptoMail (Zoho) email service backend
+- [x] Create magic link generation and storage
+- [x] Create email sending API endpoint
+- [x] Create magic link verification endpoint
+- [x] Update frontend to use real API endpoints
+- [ ] Test complete magic link flow

@@ -1,5 +1,5 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { useState, createContext, useContext } from 'react'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useState, createContext, useContext, useEffect } from 'react'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import Servers from './pages/Servers'
@@ -22,6 +22,14 @@ import Organizations from './pages/Organizations'
 import CRM from './pages/CRM'
 import Billing from './pages/Billing'
 import Settings from './pages/Settings'
+import Login from './pages/Login'
+
+// Auth Context
+const AuthContext = createContext()
+
+export function useAuth() {
+  return useContext(AuthContext)
+}
 
 // Theme Context
 const ThemeContext = createContext()
@@ -35,6 +43,29 @@ const DataContext = createContext()
 
 export function useData() {
   return useContext(DataContext)
+}
+
+// Protected Route Component
+function ProtectedRoute({ children }) {
+  const { user, isLoading } = useAuth()
+  const location = useLocation()
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+          <p className="text-slate-600 dark:text-slate-400">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />
+  }
+
+  return children
 }
 
 // Initial mock data
@@ -109,45 +140,82 @@ const initialData = {
 function App() {
   const [darkMode, setDarkMode] = useState(false)
   const [data, setData] = useState(initialData)
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Check for existing session on mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem('techypark_user')
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser))
+      } catch (e) {
+        localStorage.removeItem('techypark_user')
+      }
+    }
+    setIsLoading(false)
+  }, [])
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
     document.documentElement.classList.toggle('dark')
   }
 
+  const login = (userData) => {
+    setUser(userData)
+    localStorage.setItem('techypark_user', JSON.stringify(userData))
+  }
+
+  const logout = () => {
+    setUser(null)
+    localStorage.removeItem('techypark_user')
+  }
+
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
-      <DataContext.Provider value={{ data, setData }}>
-        <div className={darkMode ? 'dark' : ''}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="servers" element={<Servers />} />
-              <Route path="servers/:id" element={<ServerDetail />} />
-              <Route path="sites" element={<Sites />} />
-              <Route path="sites/:id" element={<SiteDetail />} />
-              <Route path="dns" element={<DNS />} />
-              <Route path="email" element={<Email />} />
-              <Route path="ssl" element={<SSL />} />
-              <Route path="firewall" element={<Firewall />} />
-              <Route path="files" element={<Files />} />
-              <Route path="databases" element={<Databases />} />
-              <Route path="backups" element={<Backups />} />
-              <Route path="containers" element={<Containers />} />
-              <Route path="app-store" element={<AppStore />} />
-              <Route path="monitoring" element={<Monitoring />} />
-              <Route path="alerts" element={<Alerts />} />
-              <Route path="users" element={<Users />} />
-              <Route path="organizations" element={<Organizations />} />
-              <Route path="crm" element={<CRM />} />
-              <Route path="billing" element={<Billing />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Route>
-          </Routes>
-        </div>
-      </DataContext.Provider>
-    </ThemeContext.Provider>
+    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+      <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+        <DataContext.Provider value={{ data, setData }}>
+          <div className={darkMode ? 'dark' : ''}>
+            <Routes>
+              {/* Public Route */}
+              <Route path="/login" element={
+                user ? <Navigate to="/" replace /> : <Login />
+              } />
+              
+              {/* Protected Routes */}
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              }>
+                <Route index element={<Dashboard />} />
+                <Route path="servers" element={<Servers />} />
+                <Route path="servers/:id" element={<ServerDetail />} />
+                <Route path="sites" element={<Sites />} />
+                <Route path="sites/:id" element={<SiteDetail />} />
+                <Route path="dns" element={<DNS />} />
+                <Route path="email" element={<Email />} />
+                <Route path="ssl" element={<SSL />} />
+                <Route path="firewall" element={<Firewall />} />
+                <Route path="files" element={<Files />} />
+                <Route path="databases" element={<Databases />} />
+                <Route path="backups" element={<Backups />} />
+                <Route path="containers" element={<Containers />} />
+                <Route path="app-store" element={<AppStore />} />
+                <Route path="monitoring" element={<Monitoring />} />
+                <Route path="alerts" element={<Alerts />} />
+                <Route path="users" element={<Users />} />
+                <Route path="organizations" element={<Organizations />} />
+                <Route path="crm" element={<CRM />} />
+                <Route path="billing" element={<Billing />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Route>
+            </Routes>
+          </div>
+        </DataContext.Provider>
+      </ThemeContext.Provider>
+    </AuthContext.Provider>
   )
 }
 

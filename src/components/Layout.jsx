@@ -1,6 +1,7 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom'
 import { useState } from 'react'
-import { useTheme, useData } from '../App'
+import { useTheme, useData, useAuth } from '../App'
+import { useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, Server, Globe, Database, Shield, FolderOpen,
   HardDrive, Container, Store, Activity, Bell, Users, Building2,
@@ -131,8 +132,21 @@ export default function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { darkMode, toggleDarkMode } = useTheme()
   const { data } = useData()
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
   
   const unreadAlerts = data.alerts.filter(a => !a.read).length
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
+
+  // Get user initials for avatar
+  const getUserInitials = () => {
+    if (!user?.name) return 'U'
+    return user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
@@ -183,12 +197,12 @@ export default function Layout() {
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
-              <span className="text-white font-medium">JA</span>
+              <span className="text-white font-medium">{getUserInitials()}</span>
             </div>
             {sidebarOpen && (
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-900 dark:text-white truncate">John Admin</p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">Admin</p>
+                <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{user?.name || 'User'}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.role || 'Member'}</p>
               </div>
             )}
           </div>
@@ -238,7 +252,11 @@ export default function Layout() {
                 </span>
               )}
             </NavLink>
-            <button className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700">
+            <button 
+              onClick={handleLogout}
+              className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700"
+              title="Sign out"
+            >
               <LogOut className="w-5 h-5 text-slate-600 dark:text-slate-300" />
             </button>
           </div>

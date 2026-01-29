@@ -10,3 +10,17 @@
 [2026-01-29T17:16:29.756Z] ➜  Local:   http://localhost:5174/
 [2026-01-29T17:16:29.757Z] ➜  Network: http://169.254.0.21:5174/
 [2026-01-29T17:16:49.688Z] 12:16:49 PM [vite] page reload index.html
+[2026-01-29T17:16:52.850Z] 12:16:52 PM [vite] page reload index.html
+[2026-01-29T17:22:15.911Z] Dev server process group stopped
+[2026-01-29T17:22:15.930Z] ELIFECYCLE  Command failed.
+[2026-01-29T17:22:15.938Z] Dev server exited with code -15
+[2026-01-29T17:22:18.920Z] Starting dev server with command: pnpm run dev
+[2026-01-29T17:22:19.213Z] 
+[2026-01-29T17:22:19.214Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-01-29T17:22:19.214Z] > vite
+[2026-01-29T17:22:19.215Z] 
+[2026-01-29T17:22:19.427Z] 
+[2026-01-29T17:22:19.427Z] VITE v5.4.21  ready in 182 ms
+[2026-01-29T17:22:19.428Z] 
+[2026-01-29T17:22:19.428Z] ➜  Local:   http://localhost:5173/
+[2026-01-29T17:22:19.429Z] ➜  Network: http://169.254.0.21:5173/

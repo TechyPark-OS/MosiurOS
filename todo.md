@@ -51,3 +51,10 @@
 ## Branding
 - [x] Generate custom app logo
 - [x] Update favicon
+
+## Authentication
+- [x] Login page with Google, Apple, and Magic Link options
+- [x] Authentication context and state management
+- [x] Protected routes (redirect to login if not authenticated) (redirect to login if not authenticated)
+- [x] Magic link email input and verification page
+- [x] Logout functionality

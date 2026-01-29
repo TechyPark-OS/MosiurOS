@@ -35,7 +35,8 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     last_login DATETIME,
-    status TEXT DEFAULT 'active'
+    status TEXT DEFAULT 'active',
+    notification_preferences TEXT DEFAULT '{"email_alerts":true,"email_reports":true,"email_marketing":false,"push_alerts":true,"push_updates":false}'
   );
 
   -- Sessions table
@@ -141,6 +142,12 @@ export const userDb = {
       fields.push('status = ?');
       values.push(updates.status);
     }
+    if (updates.notification_preferences !== undefined) {
+      fields.push('notification_preferences = ?');
+      values.push(typeof updates.notification_preferences === 'string' 
+        ? updates.notification_preferences 
+        : JSON.stringify(updates.notification_preferences));
+    }
     
     if (fields.length === 0) return userDb.findById(id);
     
@@ -197,7 +204,7 @@ export const sessionDb = {
   // Find session by token
   findByToken: (token) => {
     const stmt = db.prepare(`
-      SELECT s.*, u.email, u.name, u.avatar, u.role, u.provider, u.status
+      SELECT s.*, u.email, u.name, u.avatar, u.role, u.provider, u.status, u.notification_preferences
       FROM sessions s
       JOIN users u ON s.user_id = u.id
       WHERE s.token = ? AND s.expires_at > datetime('now')

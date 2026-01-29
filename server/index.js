@@ -209,7 +209,8 @@ app.post('/api/auth/session', async (req, res) => {
         name: session.name,
         avatar: session.avatar,
         role: session.role,
-        provider: session.provider
+        provider: session.provider,
+        notificationPreferences: session.notification_preferences ? JSON.parse(session.notification_preferences) : null
       }
     });
 
@@ -258,7 +259,8 @@ app.get('/api/auth/me', async (req, res) => {
         avatar: session.avatar,
         role: session.role,
         provider: session.provider,
-        status: session.status
+        status: session.status,
+        notificationPreferences: session.notification_preferences ? JSON.parse(session.notification_preferences) : null
       }
     });
 
@@ -283,8 +285,12 @@ app.patch('/api/auth/me', async (req, res) => {
       return res.status(401).json({ error: 'Invalid or expired session' });
     }
 
-    const { name, avatar } = req.body;
-    const updatedUser = userDb.update(session.user_id, { name, avatar });
+    const { name, avatar, notificationPreferences } = req.body;
+    const updatedUser = userDb.update(session.user_id, { 
+      name, 
+      avatar,
+      notification_preferences: notificationPreferences 
+    });
 
     res.json({
       success: true,
@@ -294,7 +300,8 @@ app.patch('/api/auth/me', async (req, res) => {
         name: updatedUser.name,
         avatar: updatedUser.avatar,
         role: updatedUser.role,
-        provider: updatedUser.provider
+        provider: updatedUser.provider,
+        notificationPreferences: updatedUser.notification_preferences ? JSON.parse(updatedUser.notification_preferences) : null
       }
     });
 

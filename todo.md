@@ -77,3 +77,12 @@
 - [ ] Add user profile management
 - [x] Implement session persistence
 - [ ] Add user CRUD operations
+
+## User Profile Editing
+- [ ] Add profile update API endpoint
+- [ ] Add avatar upload API endpoint
+- [ ] Add notification preferences to database
+- [ ] Create profile editing UI in Settings
+- [ ] Implement avatar upload with preview
+- [ ] Add notification preferences toggles
+- [x] Update auth context with profile changes

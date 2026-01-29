@@ -1,0 +1,12 @@
+[2026-01-29T17:16:29.261Z] Starting dev server with command: pnpm run dev
+[2026-01-29T17:16:29.548Z] 
+[2026-01-29T17:16:29.548Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-01-29T17:16:29.549Z] > vite
+[2026-01-29T17:16:29.549Z] 
+[2026-01-29T17:16:29.753Z] Port 5173 is in use, trying another one...
+[2026-01-29T17:16:29.755Z] 
+[2026-01-29T17:16:29.755Z] VITE v5.4.21  ready in 178 ms
+[2026-01-29T17:16:29.756Z] 
+[2026-01-29T17:16:29.756Z] ➜  Local:   http://localhost:5174/
+[2026-01-29T17:16:29.757Z] ➜  Network: http://169.254.0.21:5174/
+[2026-01-29T17:16:49.688Z] 12:16:49 PM [vite] page reload index.html

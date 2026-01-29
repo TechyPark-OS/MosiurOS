@@ -1,33 +1,35 @@
-const { themeColors } = require("./theme.config");
-const plugin = require("tailwindcss/plugin");
-
-const tailwindColors = Object.fromEntries(
-  Object.entries(themeColors).map(([name, swatch]) => [
-    name,
-    {
-      DEFAULT: `var(--color-${name})`,
-      light: swatch.light,
-      dark: swatch.dark,
-    },
-  ]),
-);
-
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: "class",
-  // Scan all component and app files for Tailwind classes
-  content: ["./app/**/*.{js,ts,tsx}", "./components/**/*.{js,ts,tsx}", "./lib/**/*.{js,ts,tsx}", "./hooks/**/*.{js,ts,tsx}"],
-
-  presets: [require("nativewind/preset")],
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: 'class',
   theme: {
     extend: {
-      colors: tailwindColors,
+      colors: {
+        primary: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#0066FF',
+          600: '#0052CC',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
+        },
+        surface: {
+          light: '#ffffff',
+          dark: '#1e293b',
+        },
+        background: {
+          light: '#f8fafc',
+          dark: '#0f172a',
+        }
+      },
     },
   },
-  plugins: [
-    plugin(({ addVariant }) => {
-      addVariant("light", ':root:not([data-theme="dark"]) &');
-      addVariant("dark", ':root[data-theme="dark"] &');
-    }),
-  ],
-};
+  plugins: [],
+}

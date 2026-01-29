@@ -59,3 +59,7 @@
 [2026-01-29T18:01:52.908Z] 
 [2026-01-29T18:01:52.908Z] ➜  Local:   http://localhost:5173/
 [2026-01-29T18:01:52.909Z] ➜  Network: http://169.254.0.21:5173/
+[2026-01-29T18:11:24.223Z] 1:11:24 PM [vite] hmr update /src/App.jsx, /src/index.css
+[2026-01-29T18:11:24.581Z] 1:11:24 PM [vite] hmr invalidate /src/App.jsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2026-01-29T18:11:24.582Z] 1:11:24 PM [vite] page reload src/App.jsx
+[2026-01-29T18:12:05.916Z] 1:12:05 PM [vite] hmr update /src/pages/Dashboard.jsx, /src/index.css

@@ -25,6 +25,8 @@ import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Verify from './pages/Verify'
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ixdmg3hbaaxfll447b4dd-eeaad10b.us1.manus.computer';
+
 // Auth Context
 const AuthContext = createContext()
 
@@ -146,15 +148,53 @@ function App() {
 
   // Check for existing session on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem('techypark_user')
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser))
-      } catch (e) {
-        localStorage.removeItem('techypark_user')
+    const validateSession = async () => {
+      const sessionToken = localStorage.getItem('techypark_session')
+      
+      if (sessionToken) {
+        try {
+          // Validate session with backend
+          const response = await fetch(`${API_URL}/api/auth/session`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ sessionToken }),
+          })
+
+          if (response.ok) {
+            const data = await response.json()
+            if (data.valid && data.user) {
+              setUser(data.user)
+              localStorage.setItem('techypark_user', JSON.stringify(data.user))
+            } else {
+              // Invalid session, clear storage
+              localStorage.removeItem('techypark_session')
+              localStorage.removeItem('techypark_user')
+            }
+          } else {
+            // Session validation failed, clear storage
+            localStorage.removeItem('techypark_session')
+            localStorage.removeItem('techypark_user')
+          }
+        } catch (error) {
+          console.error('Session validation error:', error)
+          // On error, try to use cached user data
+          const storedUser = localStorage.getItem('techypark_user')
+          if (storedUser) {
+            try {
+              setUser(JSON.parse(storedUser))
+            } catch (e) {
+              localStorage.removeItem('techypark_user')
+            }
+          }
+        }
       }
+      
+      setIsLoading(false)
     }
-    setIsLoading(false)
+
+    validateSession()
   }, [])
 
   const toggleDarkMode = () => {
@@ -167,9 +207,27 @@ function App() {
     localStorage.setItem('techypark_user', JSON.stringify(userData))
   }
 
-  const logout = () => {
+  const logout = async () => {
+    const sessionToken = localStorage.getItem('techypark_session')
+    
+    // Call logout API to invalidate session
+    if (sessionToken) {
+      try {
+        await fetch(`${API_URL}/api/auth/logout`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ sessionToken }),
+        })
+      } catch (error) {
+        console.error('Logout error:', error)
+      }
+    }
+    
     setUser(null)
     localStorage.removeItem('techypark_user')
+    localStorage.removeItem('techypark_session')
   }
 
   return (

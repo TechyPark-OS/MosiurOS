@@ -66,3 +66,14 @@
 - [x] Create magic link verification endpoint
 - [x] Update frontend to use real API endpoints
 - [ ] Test complete magic link flow
+
+
+## User Database Integration
+- [x] Set up SQLite database with better-sqlite3
+- [x] Create users table schema
+- [x] Create sessions table schema
+- [x] Create magic_links table schema
+- [x] Update auth endpoints to use database
+- [ ] Add user profile management
+- [x] Implement session persistence
+- [ ] Add user CRUD operations

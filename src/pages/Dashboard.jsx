@@ -1,4 +1,4 @@
-import { useData } from '../App'
+import { useData, useAuth } from '../App'
 import { NavLink } from 'react-router-dom'
 import {
   Server, Globe, Container, Mail, Shield, Activity,
@@ -31,6 +31,7 @@ const COLORS = ['#10B981', '#F59E0B', '#EF4444']
 
 export default function Dashboard() {
   const { data } = useData()
+  const { user } = useAuth()
   
   const serverStats = {
     online: data.servers.filter(s => s.status === 'online').length,
@@ -53,7 +54,7 @@ export default function Dashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
-          <p className="text-slate-500 dark:text-slate-400">Welcome back, John. Here's your infrastructure overview.</p>
+          <p className="text-slate-500 dark:text-slate-400">Welcome back, {user?.name || 'User'}. Here's your infrastructure overview.</p>
         </div>
         <div className="flex gap-2">
           <button className="btn-secondary text-sm">

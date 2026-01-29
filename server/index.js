@@ -1,19 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
-import { v4 as uuidv4 } from 'uuid';
-import crypto from 'crypto';
+import { userDb, sessionDb, magicLinkDb } from './database.js';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Initialize ZeptoMail SMTP transporter
 const transporter = nodemailer.createTransport({
   host: 'smtp.zeptomail.com',
   port: 587,
-  secure: false, // Use TLS
+  secure: false,
   auth: {
-    user: process.env.ZEPTOMAIL_USER || 'emailapikey',
+    user: 'emailapikey',
     pass: process.env.ZEPTOMAIL_API_KEY
   }
 });
@@ -21,17 +20,6 @@ const transporter = nodemailer.createTransport({
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// In-memory store for magic links (in production, use Redis or database)
-const magicLinks = new Map();
-
-// Store for verified sessions
-const sessions = new Map();
-
-// Generate a secure token
-function generateToken() {
-  return crypto.randomBytes(32).toString('hex');
-}
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -53,20 +41,12 @@ app.post('/api/auth/magic-link', async (req, res) => {
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    // Generate unique token
-    const token = generateToken();
-    const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
-
-    // Store the magic link
-    magicLinks.set(token, {
-      email,
-      expiresAt,
-      used: false
-    });
+    // Create magic link in database
+    const magicLink = magicLinkDb.create(email);
 
     // Build the magic link URL
     const baseUrl = process.env.APP_URL || 'https://5173-ixdmg3hbaaxfll447b4dd-eeaad10b.us1.manus.computer';
-    const magicLinkUrl = `${baseUrl}/verify?token=${token}`;
+    const magicLinkUrl = `${baseUrl}/verify?token=${magicLink.token}`;
 
     // Email HTML template
     const htmlContent = `
@@ -82,23 +62,18 @@ app.post('/api/auth/magic-link', async (req, res) => {
           <tr>
             <td align="center">
               <table width="100%" style="max-width: 480px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden;">
-                <!-- Header -->
                 <tr>
                   <td style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); padding: 32px; text-align: center;">
                     <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 700;">TechyPark Engine</h1>
                     <p style="margin: 8px 0 0; color: rgba(255, 255, 255, 0.9); font-size: 14px;">Cloud Control Platform</p>
                   </td>
                 </tr>
-                
-                <!-- Content -->
                 <tr>
                   <td style="padding: 40px 32px;">
                     <h2 style="margin: 0 0 16px; color: #1e293b; font-size: 20px; font-weight: 600; text-align: center;">Sign in to your account</h2>
                     <p style="margin: 0 0 24px; color: #64748b; font-size: 15px; line-height: 1.6; text-align: center;">
                       Click the button below to securely sign in to TechyPark Engine. This link will expire in 10 minutes.
                     </p>
-                    
-                    <!-- Button -->
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center">
@@ -108,8 +83,6 @@ app.post('/api/auth/magic-link', async (req, res) => {
                         </td>
                       </tr>
                     </table>
-                    
-                    <!-- Alternative link -->
                     <p style="margin: 24px 0 0; color: #94a3b8; font-size: 13px; text-align: center;">
                       Or copy and paste this link into your browser:
                     </p>
@@ -118,8 +91,6 @@ app.post('/api/auth/magic-link', async (req, res) => {
                     </p>
                   </td>
                 </tr>
-                
-                <!-- Footer -->
                 <tr>
                   <td style="padding: 24px 32px; background-color: #f8fafc; border-top: 1px solid #e2e8f0;">
                     <p style="margin: 0; color: #94a3b8; font-size: 12px; text-align: center;">
@@ -153,9 +124,7 @@ app.post('/api/auth/magic-link', async (req, res) => {
     
     res.json({ 
       success: true, 
-      message: 'Magic link sent successfully',
-      // Don't expose the token in production, this is for debugging
-      ...(process.env.NODE_ENV === 'development' && { debug: { token } })
+      message: 'Magic link sent successfully'
     });
 
   } catch (error) {
@@ -173,49 +142,42 @@ app.post('/api/auth/verify', async (req, res) => {
       return res.status(400).json({ error: 'Token is required' });
     }
 
-    const linkData = magicLinks.get(token);
+    // Find magic link in database
+    const magicLink = magicLinkDb.findByToken(token);
 
-    if (!linkData) {
+    if (!magicLink) {
       return res.status(400).json({ error: 'Invalid or expired link' });
     }
 
-    if (linkData.used) {
-      return res.status(400).json({ error: 'This link has already been used' });
-    }
+    // Mark magic link as used
+    magicLinkDb.markUsed(token);
 
-    if (Date.now() > linkData.expiresAt) {
-      magicLinks.delete(token);
-      return res.status(400).json({ error: 'This link has expired' });
-    }
+    // Find or create user
+    const user = userDb.findOrCreate({
+      email: magicLink.email,
+      provider: 'email'
+    });
 
-    // Mark the link as used
-    linkData.used = true;
-    magicLinks.set(token, linkData);
+    // Update last login
+    userDb.updateLastLogin(user.id);
 
-    // Create a session
-    const sessionToken = generateToken();
-    const sessionData = {
-      email: linkData.email,
-      createdAt: Date.now(),
-      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000 // 7 days
-    };
-    sessions.set(sessionToken, sessionData);
-
-    // Clean up the magic link after a short delay
-    setTimeout(() => {
-      magicLinks.delete(token);
-    }, 60000);
+    // Create session
+    const session = sessionDb.create(user.id, {
+      ipAddress: req.ip,
+      userAgent: req.get('User-Agent')
+    });
 
     res.json({
       success: true,
       user: {
-        id: uuidv4(),
-        email: linkData.email,
-        name: linkData.email.split('@')[0],
-        role: 'User',
-        provider: 'email'
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        avatar: user.avatar,
+        role: user.role,
+        provider: user.provider
       },
-      sessionToken
+      sessionToken: session.token
     });
 
   } catch (error) {
@@ -233,24 +195,21 @@ app.post('/api/auth/session', async (req, res) => {
       return res.status(401).json({ error: 'No session token provided' });
     }
 
-    const sessionData = sessions.get(sessionToken);
+    const session = sessionDb.findByToken(sessionToken);
 
-    if (!sessionData) {
-      return res.status(401).json({ error: 'Invalid session' });
-    }
-
-    if (Date.now() > sessionData.expiresAt) {
-      sessions.delete(sessionToken);
-      return res.status(401).json({ error: 'Session expired' });
+    if (!session) {
+      return res.status(401).json({ error: 'Invalid or expired session' });
     }
 
     res.json({
       valid: true,
       user: {
-        email: sessionData.email,
-        name: sessionData.email.split('@')[0],
-        role: 'User',
-        provider: 'email'
+        id: session.user_id,
+        email: session.email,
+        name: session.name,
+        avatar: session.avatar,
+        role: session.role,
+        provider: session.provider
       }
     });
 
@@ -266,7 +225,7 @@ app.post('/api/auth/logout', async (req, res) => {
     const { sessionToken } = req.body;
 
     if (sessionToken) {
-      sessions.delete(sessionToken);
+      sessionDb.delete(sessionToken);
     }
 
     res.json({ success: true });
@@ -276,10 +235,242 @@ app.post('/api/auth/logout', async (req, res) => {
   }
 });
 
+// Get current user endpoint
+app.get('/api/auth/me', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const session = sessionDb.findByToken(token);
+
+    if (!session) {
+      return res.status(401).json({ error: 'Invalid or expired session' });
+    }
+
+    res.json({
+      user: {
+        id: session.user_id,
+        email: session.email,
+        name: session.name,
+        avatar: session.avatar,
+        role: session.role,
+        provider: session.provider,
+        status: session.status
+      }
+    });
+
+  } catch (error) {
+    console.error('Error getting current user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update user profile endpoint
+app.patch('/api/auth/me', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const session = sessionDb.findByToken(token);
+
+    if (!session) {
+      return res.status(401).json({ error: 'Invalid or expired session' });
+    }
+
+    const { name, avatar } = req.body;
+    const updatedUser = userDb.update(session.user_id, { name, avatar });
+
+    res.json({
+      success: true,
+      user: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+        avatar: updatedUser.avatar,
+        role: updatedUser.role,
+        provider: updatedUser.provider
+      }
+    });
+
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// ==================== User Management API (Admin) ====================
+
+// Get all users (admin only)
+app.get('/api/users', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const session = sessionDb.findByToken(token);
+
+    if (!session || session.role !== 'Admin') {
+      return res.status(403).json({ error: 'Admin access required' });
+    }
+
+    const limit = parseInt(req.query.limit) || 100;
+    const offset = parseInt(req.query.offset) || 0;
+    
+    const users = userDb.findAll(limit, offset);
+    const total = userDb.count();
+
+    res.json({
+      users: users.map(u => ({
+        id: u.id,
+        email: u.email,
+        name: u.name,
+        avatar: u.avatar,
+        role: u.role,
+        provider: u.provider,
+        status: u.status,
+        createdAt: u.created_at,
+        lastLogin: u.last_login
+      })),
+      total,
+      limit,
+      offset
+    });
+
+  } catch (error) {
+    console.error('Error getting users:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Get single user (admin only)
+app.get('/api/users/:id', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const session = sessionDb.findByToken(token);
+
+    if (!session || session.role !== 'Admin') {
+      return res.status(403).json({ error: 'Admin access required' });
+    }
+
+    const user = userDb.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        avatar: user.avatar,
+        role: user.role,
+        provider: user.provider,
+        status: user.status,
+        createdAt: user.created_at,
+        lastLogin: user.last_login
+      }
+    });
+
+  } catch (error) {
+    console.error('Error getting user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update user (admin only)
+app.patch('/api/users/:id', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const session = sessionDb.findByToken(token);
+
+    if (!session || session.role !== 'Admin') {
+      return res.status(403).json({ error: 'Admin access required' });
+    }
+
+    const { name, role, status } = req.body;
+    const updatedUser = userDb.update(req.params.id, { name, role, status });
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({
+      success: true,
+      user: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+        avatar: updatedUser.avatar,
+        role: updatedUser.role,
+        provider: updatedUser.provider,
+        status: updatedUser.status
+      }
+    });
+
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Delete user (admin only)
+app.delete('/api/users/:id', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    const session = sessionDb.findByToken(token);
+
+    if (!session || session.role !== 'Admin') {
+      return res.status(403).json({ error: 'Admin access required' });
+    }
+
+    // Prevent self-deletion
+    if (req.params.id === session.user_id) {
+      return res.status(400).json({ error: 'Cannot delete your own account' });
+    }
+
+    const result = userDb.delete(req.params.id);
+
+    if (result.changes === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ success: true });
+
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`TechyPark Engine API server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/api/health`);
+  console.log(`Database initialized with user management`);
   
   if (!process.env.ZEPTOMAIL_API_KEY) {
     console.warn('⚠️  Warning: ZEPTOMAIL_API_KEY is not set. Email sending will fail.');

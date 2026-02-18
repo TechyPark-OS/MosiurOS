@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Mail, ArrowRight, CheckCircle, Loader2, AlertCircle } from 'lucide-react'
 import { useAuth } from '../App'
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ixdmg3hbaaxfll447b4dd-eeaad10b.us1.manus.computer';
+const API_URL = import.meta.env.VITE_API_URL || 'https://3000-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer';
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -47,21 +47,42 @@ export default function Login() {
 
   const handleSocialLogin = async (provider) => {
     setLoadingProvider(provider)
-    // Simulate OAuth flow (in production, redirect to OAuth provider)
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    setError('')
     
-    // Mock successful login
-    login({
-      id: 1,
-      name: 'John Admin',
-      email: 'john@techypark.com',
-      avatar: null,
-      role: 'Admin',
-      provider: provider
-    })
-    
-    setLoadingProvider(null)
-    navigate('/')
+    try {
+      // In production, this would redirect to OAuth provider.
+      // For now, we create a real session via the social login API.
+      const mockEmail = provider === 'google' ? 'admin@techypark.com' : 'admin-apple@techypark.com'
+      const mockName = provider === 'google' ? 'Admin User' : 'Admin User'
+      
+      const response = await fetch(`${API_URL}/api/auth/social`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider,
+          email: mockEmail,
+          name: mockName
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed')
+      }
+
+      // Store session token
+      localStorage.setItem('techypark_session', data.sessionToken)
+      
+      // Login with user data
+      login(data.user)
+      navigate('/')
+    } catch (err) {
+      console.error('Social login error:', err)
+      setError(err.message || 'Login failed. Please try again.')
+    } finally {
+      setLoadingProvider(null)
+    }
   }
 
   if (magicLinkSent) {

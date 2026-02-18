@@ -14,7 +14,7 @@ const result = stmt.get(email);
 
 if (result) {
   console.log('Token:', result.token);
-  console.log('Verify URL: https://5173-ixdmg3hbaaxfll447b4dd-eeaad10b.us1.manus.computer/verify?token=' + result.token);
+  console.log('Verify URL: https://5173-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer/verify?token=' + result.token);
 } else {
   console.log('No unused magic link found for', email);
 }

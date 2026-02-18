@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Settings as SettingsIcon, User, Shield, Bell, Palette, Key, Save, Upload, Camera, Check, X, Loader2 } from 'lucide-react'
 import { useAuth } from '../App'
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ixdmg3hbaaxfll447b4dd-eeaad10b.us1.manus.computer';
+const API_URL = import.meta.env.VITE_API_URL || 'https://3000-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer';
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState('general')

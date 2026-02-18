@@ -61,12 +61,29 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
+  -- Invitations table
+  CREATE TABLE IF NOT EXISTS invitations (
+    id TEXT PRIMARY KEY,
+    email TEXT NOT NULL,
+    role TEXT DEFAULT 'User',
+    token TEXT UNIQUE NOT NULL,
+    invited_by TEXT NOT NULL,
+    message TEXT,
+    status TEXT DEFAULT 'pending',
+    expires_at DATETIME NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    accepted_at DATETIME,
+    FOREIGN KEY (invited_by) REFERENCES users(id) ON DELETE CASCADE
+  );
+
   -- Create indexes
   CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
   CREATE INDEX IF NOT EXISTS idx_sessions_token ON sessions(token);
   CREATE INDEX IF NOT EXISTS idx_sessions_user_id ON sessions(user_id);
   CREATE INDEX IF NOT EXISTS idx_magic_links_token ON magic_links(token);
   CREATE INDEX IF NOT EXISTS idx_magic_links_email ON magic_links(email);
+  CREATE INDEX IF NOT EXISTS idx_invitations_token ON invitations(token);
+  CREATE INDEX IF NOT EXISTS idx_invitations_email ON invitations(email);
 `);
 
 // Helper function to generate UUID
@@ -267,6 +284,80 @@ export const magicLinkDb = {
   cleanupExpired: () => {
     const stmt = db.prepare("DELETE FROM magic_links WHERE expires_at <= datetime('now') OR used = 1");
     return stmt.run();
+  }
+};
+
+// Invitation operations
+export const invitationDb = {
+  // Create a new invitation
+  create: (data) => {
+    const id = generateId();
+    const token = generateToken();
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 7 days
+    
+    const stmt = db.prepare(`
+      INSERT INTO invitations (id, email, role, token, invited_by, message, expires_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `);
+    stmt.run(id, data.email, data.role || 'User', token, data.invitedBy, data.message || '', expiresAt);
+    
+    return { id, token, expiresAt };
+  },
+
+  // Find invitation by token
+  findByToken: (token) => {
+    const stmt = db.prepare(`
+      SELECT i.*, u.name as inviter_name, u.email as inviter_email
+      FROM invitations i
+      LEFT JOIN users u ON i.invited_by = u.id
+      WHERE i.token = ? AND i.status = 'pending' AND i.expires_at > datetime('now')
+    `);
+    return stmt.get(token);
+  },
+
+  // Find invitation by email
+  findByEmail: (email) => {
+    const stmt = db.prepare(`
+      SELECT * FROM invitations WHERE email = ? AND status = 'pending' AND expires_at > datetime('now')
+    `);
+    return stmt.get(email);
+  },
+
+  // Find invitation by ID
+  findById: (id) => {
+    const stmt = db.prepare('SELECT * FROM invitations WHERE id = ?');
+    return stmt.get(id);
+  },
+
+  // Get all invitations
+  findAll: () => {
+    const stmt = db.prepare(`
+      SELECT i.*, u.name as inviter_name, u.email as inviter_email
+      FROM invitations i
+      LEFT JOIN users u ON i.invited_by = u.id
+      ORDER BY i.created_at DESC
+    `);
+    return stmt.all();
+  },
+
+  // Accept invitation
+  accept: (token) => {
+    const stmt = db.prepare(`
+      UPDATE invitations SET status = 'accepted', accepted_at = CURRENT_TIMESTAMP WHERE token = ?
+    `);
+    return stmt.run(token);
+  },
+
+  // Delete invitation
+  delete: (id) => {
+    const stmt = db.prepare('DELETE FROM invitations WHERE id = ?');
+    return stmt.run(id);
+  },
+
+  // Count pending invitations
+  countPending: () => {
+    const stmt = db.prepare("SELECT COUNT(*) as count FROM invitations WHERE status = 'pending' AND expires_at > datetime('now')");
+    return stmt.get().count;
   }
 };
 

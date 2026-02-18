@@ -24,8 +24,9 @@ import Billing from './pages/Billing'
 import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Verify from './pages/Verify'
+import Invite from './pages/Invite'
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ixdmg3hbaaxfll447b4dd-eeaad10b.us1.manus.computer';
+const API_URL = import.meta.env.VITE_API_URL || 'https://3000-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer';
 
 // Auth Context
 const AuthContext = createContext()
@@ -241,6 +242,7 @@ function App() {
                 user ? <Navigate to="/" replace /> : <Login />
               } />
               <Route path="/verify" element={<Verify />} />
+              <Route path="/invite" element={<Invite />} />
               
               {/* Protected Routes */}
               <Route path="/" element={

@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
 import { userDb, sessionDb, magicLinkDb, invitationDb } from './database.js';
+import apiRoutes from './api-routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -785,6 +786,9 @@ app.delete('/api/invitations/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// ==================== MOUNT API ROUTES ====================
+app.use('/api', apiRoutes);
 
 // Resend invitation (admin only)
 app.post('/api/invitations/:id/resend', async (req, res) => {

@@ -226,3 +226,44 @@
 [2026-02-20T21:13:06.171Z] 
 [2026-02-20T21:13:06.171Z] ➜  Local:   http://localhost:5173/
 [2026-02-20T21:13:06.172Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-20T21:42:54.577Z] Dev server process group stopped
+[2026-02-20T21:42:54.595Z] ELIFECYCLE  Command failed.
+[2026-02-20T21:42:54.599Z] Dev server exited with code -15
+[2026-02-20T21:42:57.599Z] Starting dev server with command: pnpm run dev
+[2026-02-20T21:42:57.906Z] 
+[2026-02-20T21:42:57.907Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-20T21:42:57.907Z] > vite
+[2026-02-20T21:42:57.908Z] 
+[2026-02-20T21:42:58.117Z] 
+[2026-02-20T21:42:58.118Z] VITE v5.4.21  ready in 176 ms
+[2026-02-20T21:42:58.118Z] 
+[2026-02-20T21:42:58.119Z] ➜  Local:   http://localhost:5173/
+[2026-02-20T21:42:58.119Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-20T22:12:15.464Z] Dev server process group stopped
+[2026-02-20T22:12:15.481Z] ELIFECYCLE  Command failed.
+[2026-02-20T22:12:15.486Z] Dev server exited with code -15
+[2026-02-20T22:12:18.471Z] Starting dev server with command: pnpm run dev
+[2026-02-20T22:12:18.780Z] 
+[2026-02-20T22:12:18.781Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-20T22:12:18.781Z] > vite
+[2026-02-20T22:12:18.782Z] 
+[2026-02-20T22:12:19.011Z] 
+[2026-02-20T22:12:19.012Z] VITE v5.4.21  ready in 194 ms
+[2026-02-20T22:12:19.012Z] 
+[2026-02-20T22:12:19.013Z] ➜  Local:   http://localhost:5173/
+[2026-02-20T22:12:19.014Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-20T22:23:02.488Z] Dev server process group stopped
+[2026-02-20T22:23:02.505Z] ELIFECYCLE  Command failed.
+[2026-02-20T22:23:02.510Z] Dev server exited with code -15
+[2026-02-20T22:23:05.513Z] Starting dev server with command: pnpm run dev
+[2026-02-20T22:23:05.813Z] 
+[2026-02-20T22:23:05.814Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-20T22:23:05.814Z] > vite
+[2026-02-20T22:23:05.815Z] 
+[2026-02-20T22:23:06.035Z] 
+[2026-02-20T22:23:06.035Z] VITE v5.4.21  ready in 181 ms
+[2026-02-20T22:23:06.036Z] 
+[2026-02-20T22:23:06.036Z] ➜  Local:   http://localhost:5173/
+[2026-02-20T22:23:06.036Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-20T23:13:12.189Z] 6:13:12 PM [vite] hmr invalidate /src/App.jsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2026-02-20T23:13:12.190Z] 6:13:12 PM [vite] page reload src/App.jsx

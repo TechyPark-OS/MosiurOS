@@ -47,7 +47,9 @@ const navigation = [
     icon: Send,
     children: [
       { name: 'Email Marketing', href: '/email-marketing', icon: Send },
+      { name: 'Email Templates', href: '/email-templates', icon: FileText },
       { name: 'Workflows', href: '/workflows', icon: GitBranch },
+      { name: 'A/B Testing', href: '/ab-testing', icon: Percent },
       { name: 'Surveys', href: '/surveys', icon: ClipboardList },
     ]
   },

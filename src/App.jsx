@@ -48,6 +48,7 @@ import Countdown from './pages/Countdown'
 import Affiliates from './pages/Affiliates'
 import ShortLinks from './pages/ShortLinks'
 import ABTesting from './pages/ABTesting'
+import DevConsole from './pages/DevConsole'
 import EmailTemplates from './pages/EmailTemplates'
 import Payments from './pages/Payments'
 import Landing from './pages/Landing'
@@ -301,7 +302,8 @@ function App() {
                 <Route path="email-marketing" element={<EmailMarketing />} />
                 <Route path="workflows" element={<Workflows />} />
                 <Route path="countdown" element={<Countdown />} />
-                <Route path="ab-testing" element={<ABTesting />} />
+               <Route path="/ab-testing" element={<ABTesting />} />
+          <Route path="/dev-console" element={<DevConsole />} />
                 <Route path="email-templates" element={<EmailTemplates />} />
                 {/* CRM & Sales */}
                 <Route path="contacts" element={<Contacts />} />

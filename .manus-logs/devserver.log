@@ -267,3 +267,163 @@
 [2026-02-20T22:23:06.036Z] ➜  Network: http://169.254.0.21:5173/
 [2026-02-20T23:13:12.189Z] 6:13:12 PM [vite] hmr invalidate /src/App.jsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
 [2026-02-20T23:13:12.190Z] 6:13:12 PM [vite] page reload src/App.jsx
+[2026-02-20T23:39:39.700Z] 6:39:39 PM [vite] hmr update /src/App.jsx, /src/index.css
+[2026-02-20T23:39:39.968Z] 6:39:39 PM [vite] Pre-transform error: Failed to resolve import "../context/AuthContext" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:39:40.273Z] 6:39:40 PM [vite] Internal server error: Failed to resolve import "../context/AuthContext" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:39:40.273Z] Plugin: vite:import-analysis
+[2026-02-20T23:39:40.274Z] File: /home/ubuntu/techypark-engine/src/pages/DevConsole.jsx:2:24
+[2026-02-20T23:39:40.274Z] 17 |  var _s = $RefreshSig$();
+[2026-02-20T23:39:40.274Z] 18 |  import { useState, useEffect, useRef } from "react";
+[2026-02-20T23:39:40.275Z] 19 |  import { useAuth } from "../context/AuthContext";
+[2026-02-20T23:39:40.275Z] |                           ^
+[2026-02-20T23:39:40.275Z] 20 |  import { useNavigate } from "react-router-dom";
+[2026-02-20T23:39:40.275Z] 21 |  import axios from "axios";
+[2026-02-20T23:39:40.276Z] at TransformPluginContext._formatError (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+[2026-02-20T23:39:40.276Z] at TransformPluginContext.error (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+[2026-02-20T23:39:40.276Z] at normalizeUrl (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+[2026-02-20T23:39:40.277Z] at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2026-02-20T23:39:40.277Z] at async file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+[2026-02-20T23:39:40.278Z] at async Promise.all (index 4)
+[2026-02-20T23:39:40.278Z] at async TransformPluginContext.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+[2026-02-20T23:39:40.278Z] at async PluginContainer.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+[2026-02-20T23:39:40.279Z] at async loadAndTransform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+[2026-02-20T23:39:40.279Z] at async viteTransformMiddleware (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2026-02-20T23:39:40.719Z] 6:39:40 PM [vite] Internal server error: Failed to resolve import "../context/AuthContext" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:39:40.719Z] Plugin: vite:import-analysis
+[2026-02-20T23:39:40.720Z] File: /home/ubuntu/techypark-engine/src/pages/DevConsole.jsx:2:24
+[2026-02-20T23:39:40.720Z] 17 |  var _s = $RefreshSig$();
+[2026-02-20T23:39:40.723Z] 18 |  import { useState, useEffect, useRef } from "react";
+[2026-02-20T23:39:40.723Z] 19 |  import { useAuth } from "../context/AuthContext";
+[2026-02-20T23:39:40.723Z] |                           ^
+[2026-02-20T23:39:40.724Z] 20 |  import { useNavigate } from "react-router-dom";
+[2026-02-20T23:39:40.724Z] 21 |  import axios from "axios";
+[2026-02-20T23:39:40.724Z] at TransformPluginContext._formatError (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+[2026-02-20T23:39:40.724Z] at TransformPluginContext.error (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+[2026-02-20T23:39:40.724Z] at normalizeUrl (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+[2026-02-20T23:39:40.724Z] at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2026-02-20T23:39:40.725Z] at async file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+[2026-02-20T23:39:40.725Z] at async Promise.all (index 4)
+[2026-02-20T23:39:40.725Z] at async TransformPluginContext.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+[2026-02-20T23:39:40.725Z] at async PluginContainer.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+[2026-02-20T23:39:40.725Z] at async loadAndTransform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+[2026-02-20T23:39:40.726Z] at async viteTransformMiddleware (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2026-02-20T23:39:55.371Z] 6:39:55 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-20T23:39:55.455Z] 6:39:55 PM [vite] Pre-transform error: Failed to resolve import "../context/AuthContext" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:39:55.836Z] 6:39:55 PM [vite] Internal server error: Failed to resolve import "../context/AuthContext" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:39:55.836Z] Plugin: vite:import-analysis
+[2026-02-20T23:39:55.836Z] File: /home/ubuntu/techypark-engine/src/pages/DevConsole.jsx:2:24
+[2026-02-20T23:39:55.837Z] 17 |  var _s = $RefreshSig$();
+[2026-02-20T23:39:55.837Z] 18 |  import { useState, useEffect, useRef } from "react";
+[2026-02-20T23:39:55.837Z] 19 |  import { useAuth } from "../context/AuthContext";
+[2026-02-20T23:39:55.837Z] |                           ^
+[2026-02-20T23:39:55.837Z] 20 |  import { useNavigate } from "react-router-dom";
+[2026-02-20T23:39:55.838Z] 21 |  import axios from "axios";
+[2026-02-20T23:39:55.838Z] at TransformPluginContext._formatError (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+[2026-02-20T23:39:55.838Z] at TransformPluginContext.error (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+[2026-02-20T23:39:55.838Z] at normalizeUrl (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+[2026-02-20T23:39:55.838Z] at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2026-02-20T23:39:55.838Z] at async file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+[2026-02-20T23:39:55.838Z] at async Promise.all (index 4)
+[2026-02-20T23:39:55.839Z] at async TransformPluginContext.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+[2026-02-20T23:39:55.839Z] at async PluginContainer.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+[2026-02-20T23:39:55.840Z] at async loadAndTransform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+[2026-02-20T23:39:55.840Z] at async viteTransformMiddleware (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2026-02-20T23:40:00.459Z] 6:40:00 PM [vite] hmr update /src/index.css, /src/App.jsx
+[2026-02-20T23:40:00.580Z] 6:40:00 PM [vite] Pre-transform error: Failed to resolve import "axios" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:40:00.888Z] 6:40:00 PM [vite] Internal server error: Failed to resolve import "axios" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:40:00.889Z] Plugin: vite:import-analysis
+[2026-02-20T23:40:00.889Z] File: /home/ubuntu/techypark-engine/src/pages/DevConsole.jsx:4:18
+[2026-02-20T23:40:00.890Z] 19 |  import { useAuth } from "../App";
+[2026-02-20T23:40:00.890Z] 20 |  import { useNavigate } from "react-router-dom";
+[2026-02-20T23:40:00.890Z] 21 |  import axios from "axios";
+[2026-02-20T23:40:00.890Z] |                     ^
+[2026-02-20T23:40:00.891Z] 22 |  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+[2026-02-20T23:40:00.891Z] 23 |  export default function DevConsole() {
+[2026-02-20T23:40:00.891Z] at TransformPluginContext._formatError (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+[2026-02-20T23:40:00.891Z] at TransformPluginContext.error (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+[2026-02-20T23:40:00.891Z] at normalizeUrl (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+[2026-02-20T23:40:00.891Z] at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2026-02-20T23:40:00.891Z] at async file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+[2026-02-20T23:40:00.892Z] at async Promise.all (index 6)
+[2026-02-20T23:40:00.892Z] at async TransformPluginContext.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+[2026-02-20T23:40:00.892Z] at async PluginContainer.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+[2026-02-20T23:40:00.892Z] at async loadAndTransform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+[2026-02-20T23:40:00.892Z] at async viteTransformMiddleware (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2026-02-20T23:40:10.373Z] 6:40:10 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-20T23:40:10.528Z] 6:40:10 PM [vite] Pre-transform error: Failed to resolve import "axios" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:40:10.837Z] 6:40:10 PM [vite] Internal server error: Failed to resolve import "axios" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:40:10.837Z] Plugin: vite:import-analysis
+[2026-02-20T23:40:10.837Z] File: /home/ubuntu/techypark-engine/src/pages/DevConsole.jsx:4:18
+[2026-02-20T23:40:10.838Z] 19 |  import { useAuth } from "../App";
+[2026-02-20T23:40:10.838Z] 20 |  import { useNavigate } from "react-router-dom";
+[2026-02-20T23:40:10.838Z] 21 |  import axios from "axios";
+[2026-02-20T23:40:10.838Z] |                     ^
+[2026-02-20T23:40:10.838Z] 22 |  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+[2026-02-20T23:40:10.838Z] 23 |  export default function DevConsole() {
+[2026-02-20T23:40:10.839Z] at TransformPluginContext._formatError (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+[2026-02-20T23:40:10.839Z] at TransformPluginContext.error (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+[2026-02-20T23:40:10.839Z] at normalizeUrl (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+[2026-02-20T23:40:10.839Z] at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2026-02-20T23:40:10.839Z] at async file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+[2026-02-20T23:40:10.840Z] at async Promise.all (index 6)
+[2026-02-20T23:40:10.840Z] at async TransformPluginContext.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+[2026-02-20T23:40:10.840Z] at async PluginContainer.transform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+[2026-02-20T23:40:10.840Z] at async loadAndTransform (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+[2026-02-20T23:40:10.840Z] at async viteTransformMiddleware (file:///home/ubuntu/techypark-engine/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2026-02-20T23:40:13.283Z] Dev server process group stopped
+[2026-02-20T23:40:13.299Z] ELIFECYCLE  Command failed.
+[2026-02-20T23:40:13.303Z] Dev server exited with code -15
+[2026-02-20T23:40:16.313Z] Starting dev server with command: pnpm run dev
+[2026-02-20T23:40:16.651Z] 
+[2026-02-20T23:40:16.651Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-20T23:40:16.652Z] > vite
+[2026-02-20T23:40:16.652Z] 
+[2026-02-20T23:40:16.853Z] 
+[2026-02-20T23:40:16.854Z] VITE v5.4.21  ready in 174 ms
+[2026-02-20T23:40:16.855Z] 
+[2026-02-20T23:40:16.855Z] ➜  Local:   http://localhost:5173/
+[2026-02-20T23:40:16.856Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-20T23:40:17.200Z] Error: The following dependencies are imported but could not be resolved:
+[2026-02-20T23:40:17.201Z] 
+[2026-02-20T23:40:17.201Z] axios (imported by /home/ubuntu/techypark-engine/src/pages/DevConsole.jsx)
+[2026-02-20T23:40:17.201Z] 
+[2026-02-20T23:40:17.202Z] Are they installed?
+[2026-02-20T23:40:17.202Z] at file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:50669:15
+[2026-02-20T23:40:17.202Z] at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2026-02-20T23:40:17.202Z] at async file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:50174:26
+[2026-02-20T23:40:20.051Z] 6:40:20 PM [vite] Pre-transform error: Failed to resolve import "axios" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:40:20.167Z] 6:40:20 PM [vite] Internal server error: Failed to resolve import "axios" from "src/pages/DevConsole.jsx". Does the file exist?
+[2026-02-20T23:40:20.168Z] Plugin: vite:import-analysis
+[2026-02-20T23:40:20.168Z] File: /home/ubuntu/techypark-engine/src/pages/DevConsole.jsx:4:18
+[2026-02-20T23:40:20.168Z] 19 |  import { useAuth } from "../App";
+[2026-02-20T23:40:20.168Z] 20 |  import { useNavigate } from "react-router-dom";
+[2026-02-20T23:40:20.168Z] 21 |  import axios from "axios";
+[2026-02-20T23:40:20.168Z] |                     ^
+[2026-02-20T23:40:20.169Z] 22 |  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+[2026-02-20T23:40:20.169Z] 23 |  export default function DevConsole() {
+[2026-02-20T23:40:20.169Z] at TransformPluginContext._formatError (file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49258:41)
+[2026-02-20T23:40:20.169Z] at TransformPluginContext.error (file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49253:16)
+[2026-02-20T23:40:20.169Z] at normalizeUrl (file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64307:23)
+[2026-02-20T23:40:20.169Z] at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2026-02-20T23:40:20.169Z] at async file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64439:39
+[2026-02-20T23:40:20.170Z] at async Promise.all (index 6)
+[2026-02-20T23:40:20.170Z] at async TransformPluginContext.transform (file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:64366:7)
+[2026-02-20T23:40:20.170Z] at async PluginContainer.transform (file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+[2026-02-20T23:40:20.170Z] at async loadAndTransform (file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+[2026-02-20T23:40:20.170Z] at async viteTransformMiddleware (file:///home/ubuntu/techypark-engine/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2026-02-20T23:41:27.414Z] 6:41:27 PM [vite] hmr update /src/App.jsx, /src/index.css
+[2026-02-20T23:41:31.066Z] Dev server process group stopped
+[2026-02-20T23:41:31.083Z] ELIFECYCLE  Command failed.
+[2026-02-20T23:41:31.087Z] Dev server exited with code -15
+[2026-02-20T23:41:34.073Z] Starting dev server with command: pnpm run dev
+[2026-02-20T23:41:34.345Z] 
+[2026-02-20T23:41:34.346Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-20T23:41:34.346Z] > vite
+[2026-02-20T23:41:34.347Z] 
+[2026-02-20T23:41:34.540Z] 
+[2026-02-20T23:41:34.540Z] VITE v5.4.21  ready in 166 ms
+[2026-02-20T23:41:34.541Z] 
+[2026-02-20T23:41:34.541Z] ➜  Local:   http://localhost:5173/
+[2026-02-20T23:41:34.542Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-20T23:41:38.407Z] 6:41:38 PM [vite] ✨ new dependencies optimized: axios
+[2026-02-20T23:41:38.408Z] 6:41:38 PM [vite] ✨ optimized dependencies changed. reloading

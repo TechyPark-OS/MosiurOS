@@ -48,6 +48,10 @@ import Countdown from './pages/Countdown'
 import Affiliates from './pages/Affiliates'
 import ShortLinks from './pages/ShortLinks'
 import Payments from './pages/Payments'
+import Landing from './pages/Landing'
+import Pricing from './pages/Pricing'
+import Features from './pages/Features'
+import CaseStudies from './pages/CaseStudies'
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
 
@@ -247,13 +251,19 @@ function App() {
         <DataContext.Provider value={{ data, setData }}>
           <div className={darkMode ? 'dark' : ''}>
             <Routes>
+              {/* Public Landing Pages */}
+              <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/features" element={<Features />} />
+              <Route path="/case-studies" element={<CaseStudies />} />
+              
               {/* Public Routes */}
-              <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
+              <Route path="/login" element={user ? <Navigate to="/dashboard" replace /> : <Login />} />
               <Route path="/verify" element={<Verify />} />
               <Route path="/invite" element={<Invite />} />
               
               {/* Protected Routes */}
-              <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+              <Route path="/dashboard" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
                 <Route index element={<Dashboard />} />
                 {/* Infrastructure */}
                 <Route path="servers" element={<Servers />} />

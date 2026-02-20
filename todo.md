@@ -133,3 +133,12 @@
 - [ ] Funnel analytics and conversion tracking
 - [x] Affiliate Center management
 - [x] Short Links / URL management
+
+
+## Frontend Redesign (ClickFunnels-style)
+- [ ] Create modern landing page with hero section
+- [ ] Build pricing page with plans and comparison
+- [ ] Create features showcase page
+- [ ] Build testimonials and case studies page
+- [ ] Enhance dashboard with modern design
+- [ ] Add smooth animations and transitions

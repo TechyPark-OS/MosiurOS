@@ -45,7 +45,7 @@ app.post('/api/auth/magic-link', async (req, res) => {
     const magicLink = magicLinkDb.create(email);
 
     // Build the magic link URL
-    const baseUrl = process.env.APP_URL || 'https://5173-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer';
+    const baseUrl = process.env.APP_URL || 'https://5173-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
     const magicLinkUrl = `${baseUrl}/verify?token=${magicLink.token}`;
 
     // Email HTML template
@@ -565,7 +565,7 @@ app.post('/api/invitations', async (req, res) => {
     });
 
     // Build invitation URL
-    const baseUrl = process.env.APP_URL || 'https://5173-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer';
+    const baseUrl = process.env.APP_URL || 'https://5173-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
     const inviteUrl = `${baseUrl}/invite?token=${invitation.token}`;
 
     // Send invitation email
@@ -806,7 +806,7 @@ app.post('/api/invitations/:id/resend', async (req, res) => {
       return res.status(404).json({ error: 'Invitation not found' });
     }
 
-    const baseUrl = process.env.APP_URL || 'https://5173-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer';
+    const baseUrl = process.env.APP_URL || 'https://5173-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
     const inviteUrl = `${baseUrl}/invite?token=${invitation.token}`;
 
     try {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Mail, ArrowRight, CheckCircle, Loader2, AlertCircle } from 'lucide-react'
 import { useAuth } from '../App'
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://3000-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer';
+const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
 
 export default function Login() {
   const [email, setEmail] = useState('')

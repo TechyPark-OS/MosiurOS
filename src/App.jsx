@@ -25,8 +25,31 @@ import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Verify from './pages/Verify'
 import Invite from './pages/Invite'
+// ClickFunnels Feature Pages
+import Funnels from './pages/Funnels'
+import LandingPages from './pages/LandingPages'
+import EcomStore from './pages/EcomStore'
+import GlobalProducts from './pages/GlobalProducts'
+import SmartCheckout from './pages/SmartCheckout'
+import Courses from './pages/Courses'
+import Memberships from './pages/Memberships'
+import EmailMarketing from './pages/EmailMarketing'
+import Workflows from './pages/Workflows'
+import Opportunities from './pages/Opportunities'
+import Appointments from './pages/Appointments'
+import Contacts from './pages/Contacts'
+import MessageHub from './pages/MessageHub'
+import Community from './pages/Community'
+import Blog from './pages/Blog'
+import CustomerCenter from './pages/CustomerCenter'
+import Analytics from './pages/Analytics'
+import Surveys from './pages/Surveys'
+import Countdown from './pages/Countdown'
+import Affiliates from './pages/Affiliates'
+import ShortLinks from './pages/ShortLinks'
+import Payments from './pages/Payments'
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://3000-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer';
+const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
 
 // Auth Context
 const AuthContext = createContext()
@@ -154,12 +177,9 @@ function App() {
       
       if (sessionToken) {
         try {
-          // Validate session with backend
           const response = await fetch(`${API_URL}/api/auth/session`, {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sessionToken }),
           })
 
@@ -169,25 +189,18 @@ function App() {
               setUser(data.user)
               localStorage.setItem('techypark_user', JSON.stringify(data.user))
             } else {
-              // Invalid session, clear storage
               localStorage.removeItem('techypark_session')
               localStorage.removeItem('techypark_user')
             }
           } else {
-            // Session validation failed, clear storage
             localStorage.removeItem('techypark_session')
             localStorage.removeItem('techypark_user')
           }
         } catch (error) {
           console.error('Session validation error:', error)
-          // On error, try to use cached user data
           const storedUser = localStorage.getItem('techypark_user')
           if (storedUser) {
-            try {
-              setUser(JSON.parse(storedUser))
-            } catch (e) {
-              localStorage.removeItem('techypark_user')
-            }
+            try { setUser(JSON.parse(storedUser)) } catch (e) { localStorage.removeItem('techypark_user') }
           }
         }
       }
@@ -211,14 +224,11 @@ function App() {
   const logout = async () => {
     const sessionToken = localStorage.getItem('techypark_session')
     
-    // Call logout API to invalidate session
     if (sessionToken) {
       try {
         await fetch(`${API_URL}/api/auth/logout`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionToken }),
         })
       } catch (error) {
@@ -238,38 +248,68 @@ function App() {
           <div className={darkMode ? 'dark' : ''}>
             <Routes>
               {/* Public Routes */}
-              <Route path="/login" element={
-                user ? <Navigate to="/" replace /> : <Login />
-              } />
+              <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
               <Route path="/verify" element={<Verify />} />
               <Route path="/invite" element={<Invite />} />
               
               {/* Protected Routes */}
-              <Route path="/" element={
-                <ProtectedRoute>
-                  <Layout />
-                </ProtectedRoute>
-              }>
+              <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
                 <Route index element={<Dashboard />} />
+                {/* Infrastructure */}
                 <Route path="servers" element={<Servers />} />
                 <Route path="servers/:id" element={<ServerDetail />} />
                 <Route path="sites" element={<Sites />} />
                 <Route path="sites/:id" element={<SiteDetail />} />
+                <Route path="containers" element={<Containers />} />
+                <Route path="app-store" element={<AppStore />} />
+                {/* Domains & Email */}
                 <Route path="dns" element={<DNS />} />
                 <Route path="email" element={<Email />} />
+                {/* Security */}
                 <Route path="ssl" element={<SSL />} />
                 <Route path="firewall" element={<Firewall />} />
+                {/* Storage */}
                 <Route path="files" element={<Files />} />
                 <Route path="databases" element={<Databases />} />
                 <Route path="backups" element={<Backups />} />
-                <Route path="containers" element={<Containers />} />
-                <Route path="app-store" element={<AppStore />} />
+                {/* Monitoring */}
                 <Route path="monitoring" element={<Monitoring />} />
                 <Route path="alerts" element={<Alerts />} />
-                <Route path="users" element={<Users />} />
-                <Route path="organizations" element={<Organizations />} />
+                {/* Funnels & Pages */}
+                <Route path="funnels" element={<Funnels />} />
+                <Route path="landing-pages" element={<LandingPages />} />
+                {/* Store & Products */}
+                <Route path="store" element={<EcomStore />} />
+                <Route path="products" element={<GlobalProducts />} />
+                <Route path="checkout" element={<SmartCheckout />} />
+                {/* Courses & Memberships */}
+                <Route path="courses" element={<Courses />} />
+                <Route path="memberships" element={<Memberships />} />
+                {/* Marketing */}
+                <Route path="email-marketing" element={<EmailMarketing />} />
+                <Route path="workflows" element={<Workflows />} />
+                <Route path="countdown" element={<Countdown />} />
+                {/* CRM & Sales */}
+                <Route path="contacts" element={<Contacts />} />
+                <Route path="opportunities" element={<Opportunities />} />
+                <Route path="appointments" element={<Appointments />} />
+                <Route path="message-hub" element={<MessageHub />} />
+                {/* Community & Content */}
+                <Route path="community" element={<Community />} />
+                <Route path="blog" element={<Blog />} />
+                <Route path="customer-center" element={<CustomerCenter />} />
+                {/* Analytics & Tools */}
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="surveys" element={<Surveys />} />
+                <Route path="short-links" element={<ShortLinks />} />
+                {/* Business */}
+                <Route path="affiliates" element={<Affiliates />} />
+                <Route path="payments" element={<Payments />} />
                 <Route path="crm" element={<CRM />} />
                 <Route path="billing" element={<Billing />} />
+                {/* Management */}
+                <Route path="users" element={<Users />} />
+                <Route path="organizations" element={<Organizations />} />
                 <Route path="settings" element={<Settings />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>

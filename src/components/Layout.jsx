@@ -6,13 +6,89 @@ import {
   LayoutDashboard, Server, Globe, Database, Shield, FolderOpen,
   HardDrive, Container, Store, Activity, Bell, Users, Building2,
   Receipt, Settings, Menu, X, Moon, Sun, ChevronDown, ChevronRight,
-  Mail, Lock, Flame, Archive, Search, LogOut
+  Mail, Lock, Flame, Archive, Search, LogOut,
+  // ClickFunnels icons
+  Zap, FileText, ShoppingCart, Package, CreditCard, GraduationCap,
+  Crown, Send, GitBranch, Timer, UserCheck, DollarSign, Calendar,
+  MessageSquare, MessagesSquare, BookOpen, Headphones, BarChart3,
+  ClipboardList, Link2, Share2, Target, Percent
 } from 'lucide-react'
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { 
-    name: 'Infrastructure', 
+    name: 'Funnels & Pages', 
+    icon: Zap,
+    children: [
+      { name: 'Sales Funnels', href: '/funnels', icon: Zap },
+      { name: 'Landing Pages', href: '/landing-pages', icon: FileText },
+      { name: 'Countdown Funnels', href: '/countdown', icon: Timer },
+    ]
+  },
+  { 
+    name: 'Store & Products', 
+    icon: ShoppingCart,
+    children: [
+      { name: 'Ecommerce Store', href: '/store', icon: Store },
+      { name: 'Products', href: '/products', icon: Package },
+      { name: 'Smart Checkout', href: '/checkout', icon: CreditCard },
+    ]
+  },
+  { 
+    name: 'Courses & Members', 
+    icon: GraduationCap,
+    children: [
+      { name: 'Online Courses', href: '/courses', icon: GraduationCap },
+      { name: 'Memberships', href: '/memberships', icon: Crown },
+    ]
+  },
+  { 
+    name: 'Marketing', 
+    icon: Send,
+    children: [
+      { name: 'Email Marketing', href: '/email-marketing', icon: Send },
+      { name: 'Workflows', href: '/workflows', icon: GitBranch },
+      { name: 'Surveys', href: '/surveys', icon: ClipboardList },
+    ]
+  },
+  { 
+    name: 'CRM & Sales', 
+    icon: Target,
+    children: [
+      { name: 'Contacts', href: '/contacts', icon: UserCheck },
+      { name: 'Opportunities', href: '/opportunities', icon: DollarSign },
+      { name: 'Appointments', href: '/appointments', icon: Calendar },
+      { name: 'Message Hub', href: '/message-hub', icon: MessageSquare },
+    ]
+  },
+  { 
+    name: 'Community & Content', 
+    icon: MessagesSquare,
+    children: [
+      { name: 'Community', href: '/community', icon: MessagesSquare },
+      { name: 'Blog', href: '/blog', icon: BookOpen },
+      { name: 'Customer Center', href: '/customer-center', icon: Headphones },
+    ]
+  },
+  { 
+    name: 'Analytics & Tools', 
+    icon: BarChart3,
+    children: [
+      { name: 'Analytics', href: '/analytics', icon: BarChart3 },
+      { name: 'Short Links', href: '/short-links', icon: Link2 },
+    ]
+  },
+  { 
+    name: 'Revenue', 
+    icon: DollarSign,
+    children: [
+      { name: 'Payments', href: '/payments', icon: CreditCard },
+      { name: 'Affiliates', href: '/affiliates', icon: Share2 },
+      { name: 'Billing', href: '/billing', icon: Receipt },
+    ]
+  },
+  {
+    name: 'Infrastructure',
     icon: Server,
     children: [
       { name: 'Servers', href: '/servers', icon: Server },
@@ -26,7 +102,7 @@ const navigation = [
     icon: Mail,
     children: [
       { name: 'DNS Manager', href: '/dns', icon: Globe },
-      { name: 'Email', href: '/email', icon: Mail },
+      { name: 'Email Hosting', href: '/email', icon: Mail },
     ]
   },
   { 
@@ -60,14 +136,7 @@ const navigation = [
     children: [
       { name: 'Users', href: '/users', icon: Users },
       { name: 'Organizations', href: '/organizations', icon: Building2 },
-    ]
-  },
-  { 
-    name: 'Business', 
-    icon: Receipt,
-    children: [
-      { name: 'CRM', href: '/crm', icon: Users },
-      { name: 'Billing', href: '/billing', icon: Receipt },
+      { name: 'CRM (Legacy)', href: '/crm', icon: Users },
     ]
   },
   { name: 'Settings', href: '/settings', icon: Settings },
@@ -117,6 +186,7 @@ function NavItem({ item, collapsed }) {
   return (
     <NavLink
       to={item.href}
+      end={item.href === '/'}
       className={({ isActive }) =>
         `sidebar-item ${isActive ? 'sidebar-item-active' : ''}`
       }
@@ -142,7 +212,6 @@ export default function Layout() {
     navigate('/login')
   }
 
-  // Get user initials for avatar
   const getUserInitials = () => {
     if (!user?.name) return 'U'
     return user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
@@ -187,7 +256,7 @@ export default function Layout() {
         </div>
 
         {/* Navigation */}
-        <nav className="p-4 space-y-1 overflow-y-auto h-[calc(100vh-8rem)]">
+        <nav className="p-3 space-y-0.5 overflow-y-auto h-[calc(100vh-8rem)] scrollbar-thin">
           {navigation.map((item) => (
             <NavItem key={item.name} item={item} collapsed={!sidebarOpen} />
           ))}
@@ -224,7 +293,7 @@ export default function Layout() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
                 type="text"
-                placeholder="Search servers, sites, domains..."
+                placeholder="Search funnels, products, contacts..."
                 className="w-64 lg:w-80 pl-10 pr-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 border-0 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>

@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../App'
 import { Mail, User, Shield, CheckCircle, XCircle, Loader2 } from 'lucide-react'
 
-const API_URL = 'https://3000-i2koko878nh6heogpew1t-0dc26023.us2.manus.computer'
+const API_URL = 'https://3000-ira245erppsrdirm200d8-23969b88.us1.manus.computer'
 
 export default function Invite() {
   const [searchParams] = useSearchParams()

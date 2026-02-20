@@ -86,3 +86,50 @@
 - [ ] Implement avatar upload with preview
 - [ ] Add notification preferences toggles
 - [x] Update auth context with profile changes
+
+
+## ClickFunnels Features Integration
+
+### Funnel Builder & Landing Pages
+- [ ] Funnel Builder - create multi-step sales funnels
+- [ ] Landing Page builder with templates
+- [ ] Page Editor (drag-and-drop style)
+- [x] Countdown Funnels with urgency timers
+- [ ] A/B Split Testing for pages
+
+### Ecommerce & Payments
+- [ ] Online Store with product catalog
+- [x] Global Products management
+- [x] Smart Checkout flow
+- [ ] Discounts and coupon management
+- [x] Payments processing dashboard
+- [ ] Store Funnels
+
+### Courses & Memberships
+- [x] Online Courses builder
+- [x] Membership Sites with gated content
+- [ ] Course progress tracking
+- [ ] Membership access levels
+
+### Email Marketing & Automations
+- [x] Email Marketing campaigns
+- [ ] Email templates and editor
+- [ ] Marketing Automations / Workflows
+- [ ] Survey Workflows for data collection
+
+### CRM & Sales
+- [ ] CRM Contacts management (enhanced)
+- [x] Opportunities / Sales Pipeline
+- [x] Appointments booking and scheduling
+- [x] Message Hub unified messaging
+
+### Content & Community
+- [x] Blog / Content management
+- [x] Community forums and groups
+- [x] Customer Center portal
+
+### Analytics & Tools
+- [ ] Enhanced Analytics dashboard
+- [ ] Funnel analytics and conversion tracking
+- [x] Affiliate Center management
+- [x] Short Links / URL management

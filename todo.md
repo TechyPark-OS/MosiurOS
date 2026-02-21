@@ -157,3 +157,72 @@
 - [ ] Build testimonials and case studies page
 - [ ] Enhance dashboard with modern design
 - [ ] Add smooth animations and transitions
+
+
+## 🚀 PRODUCTION LAUNCH - PRIORITY TASKS
+
+### Infrastructure & Configuration
+- [ ] Configure app.mosiur.com for frontend deployment
+- [ ] Configure crm.mosiur.com for backend API
+- [ ] Update API base URL to crm.mosiur.com throughout codebase
+- [ ] Set up CORS for cross-domain requests (app.mosiur.com ↔ crm.mosiur.com)
+- [ ] Configure production environment variables
+
+### Stripe Integration & Billing System
+- [x] Integrate Stripe API with live key
+- [x] Create 3 Stripe products: Starter ($97/m), Professional ($997/m), Premium Pro ($4997/m)
+- [x] Build subscription management backend
+- [x] Implement 14-day free trial with card collection
+- [x] Create pricing page with 3-tier comparison
+- [x] Build Stripe checkout flow
+- [x] Implement subscription upgrade/downgrade logic
+- [x] Build customer billing portal
+- [x] Add payment method management
+- [x] Implement automatic trial expiration and conversion
+- [x] Add webhook handlers for Stripe events
+
+### Authentication & Trial System
+- [ ] Remove free account option (trial only)
+- [ ] Build trial signup with credit card requirement
+- [ ] Implement trial countdown in dashboard
+- [ ] Add subscription status middleware to all protected routes
+- [ ] Build subscription expired/payment failed pages
+- [ ] Implement grace period logic
+
+### Complete All Module Pages (Production-Ready)
+- [ ] Funnels: List, Create, Edit, Builder, Analytics
+- [ ] Pages: List, Builder, Templates, Settings
+- [ ] Products: Catalog, Create, Edit, Orders, Inventory
+- [ ] Email: Campaigns, Templates, Subscribers, Analytics
+- [ ] Workflows: Builder, Triggers, Actions, Logs
+- [ ] Courses: List, Builder, Modules, Lessons, Students
+- [ ] Contacts: List, Detail, Segments, Import
+- [ ] Deals: Pipeline, Stages, Activities
+- [ ] Tickets: List, Detail, Assignment, Status
+- [ ] Analytics: Dashboard, Funnels, Revenue, Traffic
+- [ ] Appointments: Calendar, Booking, Reminders
+- [ ] Affiliates: Dashboard, Commissions, Payouts
+- [ ] Blog: Posts, Editor, Categories, SEO
+- [ ] Community: Forums, Topics, Moderation
+- [ ] Surveys: Builder, Responses, Analytics
+- [ ] Customer Portal: Dashboard, Orders, Support
+
+### Production Testing
+- [ ] Test complete signup → trial → payment flow
+- [ ] Test all Stripe webhooks
+- [ ] Test subscription upgrades/downgrades
+- [ ] Test trial expiration scenarios
+- [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)
+- [ ] Mobile responsiveness testing
+- [ ] API endpoint testing (all CRUD operations)
+- [ ] Performance optimization and load testing
+
+### Deployment
+- [ ] Build production frontend bundle
+- [ ] Deploy frontend to Vercel (app.mosiur.com)
+- [ ] Deploy backend to Vercel (crm.mosiur.com)
+- [ ] Verify SSL certificates for both domains
+- [ ] Set up error tracking (Sentry)
+- [ ] Configure database backups
+- [ ] Final production checkpoint
+- [ ] GO LIVE! 🎉

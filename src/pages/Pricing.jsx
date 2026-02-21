@@ -67,8 +67,8 @@ export default function Pricing() {
     {
       name: 'Professional',
       icon: Rocket,
-      monthlyPrice: 97,
-      yearlyPrice: 77,
+      monthlyPrice: 997,
+      yearlyPrice: 797,
       description: 'For growing businesses',
       color: 'from-blue-500 to-purple-600',
       highlighted: true,
@@ -88,11 +88,11 @@ export default function Pricing() {
       ctaStyle: 'bg-white text-blue-600 hover:bg-slate-100',
     },
     {
-      name: 'Enterprise',
+      name: 'Premium Pro',
       icon: Star,
-      monthlyPrice: null,
-      yearlyPrice: null,
-      description: 'For large teams & agencies',
+      monthlyPrice: 4997,
+      yearlyPrice: 3997,
+      description: 'Done-for-you service with dedicated team',
       color: 'from-purple-500 to-pink-600',
       features: [
         { name: 'Everything in Pro', included: true },
@@ -112,7 +112,7 @@ export default function Pricing() {
   ];
 
   const comparison = [
-    { category: 'Funnels', starter: '3', pro: 'Unlimited', enterprise: 'Unlimited' },
+    { category: 'Funnels', starter: '3', pro: 'Unlimited', enterprise: 'Unlimited + DFY' },
     { category: 'Landing Pages', starter: '5', pro: 'Unlimited', enterprise: 'Unlimited' },
     { category: 'Contacts', starter: '100', pro: 'Unlimited', enterprise: 'Unlimited' },
     { category: 'Email Campaigns', starter: '—', pro: 'Unlimited', enterprise: 'Unlimited' },
@@ -122,7 +122,7 @@ export default function Pricing() {
     { category: 'Custom Domains', starter: '1', pro: 'Unlimited', enterprise: 'Unlimited' },
     { category: 'API Access', starter: '—', pro: '✓', enterprise: '✓' },
     { category: 'Analytics', starter: 'Basic', pro: 'Advanced', enterprise: 'Advanced' },
-    { category: 'Support', starter: 'Email', pro: 'Priority', enterprise: '24/7 Phone' },
+    { category: 'Support', starter: 'Community', pro: 'Priority', enterprise: 'Dedicated Manager' },
     { category: 'White-label', starter: '—', pro: '—', enterprise: '✓' },
   ];
 
@@ -261,7 +261,40 @@ export default function Pricing() {
                   </div>
 
                   <button
-                    onClick={() => navigate('/login')}
+                    onClick={async () => {
+                      const token = localStorage.getItem('token');
+                      if (!token) {
+                        navigate('/login?redirect=/pricing');
+                        return;
+                      }
+                      
+                      const tierMap = { 'Starter': 'starter', 'Professional': 'professional', 'Premium Pro': 'premium' };
+                      const tier = tierMap[plan.name];
+                      
+                      if (tier === 'starter') {
+                        navigate('/dashboard');
+                        return;
+                      }
+                      
+                      try {
+                        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/stripe/checkout`, {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                          },
+                          body: JSON.stringify({ tier })
+                        });
+                        
+                        const data = await response.json();
+                        if (data.url) {
+                          window.location.href = data.url;
+                        }
+                      } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error starting checkout');
+                      }
+                    }}
                     className={`w-full py-3 rounded-xl font-semibold mb-8 transition-all duration-200 hover:scale-105 ${plan.ctaStyle}`}
                   >
                     {plan.cta}

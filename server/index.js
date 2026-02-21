@@ -3,6 +3,7 @@ import cors from 'cors';
 import nodemailer from 'nodemailer';
 import { userDb, sessionDb, magicLinkDb, invitationDb } from './database.js';
 import apiRoutes from './api-routes.js';
+import stripeRoutes from './stripe-routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -789,6 +790,7 @@ app.delete('/api/invitations/:id', async (req, res) => {
 
 // ==================== MOUNT API ROUTES ====================
 app.use('/api', apiRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 // Resend invitation (admin only)
 app.post('/api/invitations/:id/resend', async (req, res) => {

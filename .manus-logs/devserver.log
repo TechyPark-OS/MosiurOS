@@ -267,3 +267,54 @@
 [2026-02-20T22:23:06.036Z] ➜  Network: http://169.254.0.21:5173/
 [2026-02-20T23:13:12.189Z] 6:13:12 PM [vite] hmr invalidate /src/App.jsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
 [2026-02-20T23:13:12.190Z] 6:13:12 PM [vite] page reload src/App.jsx
+[2026-02-21T01:39:26.764Z] Starting dev server with command: pnpm run dev
+[2026-02-21T01:39:27.036Z] 
+[2026-02-21T01:39:27.037Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-21T01:39:27.037Z] > vite
+[2026-02-21T01:39:27.038Z] 
+[2026-02-21T01:39:27.240Z] 
+[2026-02-21T01:39:27.241Z] VITE v5.4.21  ready in 172 ms
+[2026-02-21T01:39:27.241Z] 
+[2026-02-21T01:39:27.241Z] ➜  Local:   http://localhost:5173/
+[2026-02-21T01:39:27.242Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-21T01:58:32.165Z] Dev server process group stopped
+[2026-02-21T01:58:32.181Z] ELIFECYCLE  Command failed.
+[2026-02-21T01:58:32.185Z] Dev server exited with code -15
+[2026-02-21T01:58:35.175Z] Starting dev server with command: pnpm run dev
+[2026-02-21T01:58:35.430Z] 
+[2026-02-21T01:58:35.431Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-21T01:58:35.431Z] > vite
+[2026-02-21T01:58:35.431Z] 
+[2026-02-21T01:58:35.610Z] 
+[2026-02-21T01:58:35.611Z] VITE v5.4.21  ready in 153 ms
+[2026-02-21T01:58:35.611Z] 
+[2026-02-21T01:58:35.612Z] ➜  Local:   http://localhost:5173/
+[2026-02-21T01:58:35.613Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-21T01:59:43.959Z] Dev server process group stopped
+[2026-02-21T01:59:43.977Z] ELIFECYCLE  Command failed.
+[2026-02-21T01:59:43.982Z] Dev server exited with code -15
+[2026-02-21T01:59:46.968Z] Starting dev server with command: pnpm run dev
+[2026-02-21T01:59:47.224Z] 
+[2026-02-21T01:59:47.225Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-21T01:59:47.225Z] > vite
+[2026-02-21T01:59:47.225Z] 
+[2026-02-21T01:59:47.409Z] 
+[2026-02-21T01:59:47.410Z] VITE v5.4.21  ready in 159 ms
+[2026-02-21T01:59:47.411Z] 
+[2026-02-21T01:59:47.411Z] ➜  Local:   http://localhost:5173/
+[2026-02-21T01:59:47.411Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-21T02:01:38.050Z] 9:01:38 PM [vite] hmr update /src/pages/Pricing.jsx, /src/index.css
+[2026-02-21T02:01:47.081Z] 9:01:47 PM [vite] hmr update /src/pages/Pricing.jsx, /src/index.css
+[2026-02-21T02:02:24.777Z] Dev server process group stopped
+[2026-02-21T02:02:24.793Z] ELIFECYCLE  Command failed.
+[2026-02-21T02:02:24.801Z] Dev server exited with code -15
+[2026-02-21T02:02:27.785Z] Starting dev server with command: pnpm run dev
+[2026-02-21T02:02:28.042Z] 
+[2026-02-21T02:02:28.043Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-21T02:02:28.043Z] > vite
+[2026-02-21T02:02:28.043Z] 
+[2026-02-21T02:02:28.235Z] 
+[2026-02-21T02:02:28.236Z] VITE v5.4.21  ready in 164 ms
+[2026-02-21T02:02:28.236Z] 
+[2026-02-21T02:02:28.237Z] ➜  Local:   http://localhost:5173/
+[2026-02-21T02:02:28.237Z] ➜  Network: http://169.254.0.21:5173/

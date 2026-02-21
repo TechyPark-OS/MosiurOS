@@ -41,63 +41,89 @@ export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState('monthly');
   const [ref, inView] = useInView(0.1);
 
+  const handleCheckout = async (tier) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/stripe/create-checkout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ tier })
+      });
+      
+      const data = await response.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Failed to create checkout session');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
+
   const plans = [
     {
       name: 'Starter',
+      tier: 'starter',
       icon: Zap,
-      monthlyPrice: 0,
-      yearlyPrice: 0,
-      description: 'Perfect for getting started',
+      monthlyPrice: 97,
+      yearlyPrice: 97,
+      description: 'Perfect for small businesses getting started',
       color: 'from-slate-500 to-slate-600',
       features: [
-        { name: 'Up to 3 funnels', included: true },
-        { name: '100 contacts', included: true },
-        { name: 'Basic analytics', included: true },
-        { name: 'Community access', included: true },
-        { name: '1 custom domain', included: true },
-        { name: 'Email marketing', included: false },
+        { name: '3 Funnels', included: true },
+        { name: '10 Landing Pages', included: true },
+        { name: '1,000 Contacts', included: true },
+        { name: 'Email Marketing', included: true },
+        { name: 'Basic Analytics', included: true },
+        { name: 'Community Support', included: true },
         { name: 'Advanced automation', included: false },
         { name: 'A/B testing', included: false },
         { name: 'Priority support', included: false },
         { name: 'White-label', included: false },
       ],
-      cta: 'Get Started Free',
+      cta: 'Start 14-Day Free Trial',
       ctaStyle: 'bg-slate-700 hover:bg-slate-600 text-white',
     },
     {
       name: 'Professional',
+      tier: 'professional',
       icon: Rocket,
       monthlyPrice: 997,
-      yearlyPrice: 797,
-      description: 'For growing businesses',
+      yearlyPrice: 997,
+      description: 'For growing businesses that need unlimited',
       color: 'from-blue-500 to-purple-600',
       highlighted: true,
       features: [
-        { name: 'Unlimited funnels', included: true },
-        { name: 'Unlimited contacts', included: true },
-        { name: 'Advanced analytics', included: true },
-        { name: 'Community access', included: true },
-        { name: 'Unlimited custom domains', included: true },
-        { name: 'Email marketing', included: true },
-        { name: 'Advanced automation', included: true },
-        { name: 'A/B testing', included: true },
-        { name: 'Priority support', included: true },
+        { name: 'Unlimited Funnels', included: true },
+        { name: 'Unlimited Landing Pages', included: true },
+        { name: '25,000 Contacts', included: true },
+        { name: 'Advanced Email Automation', included: true },
+        { name: 'A/B Testing', included: true },
+        { name: 'CRM & Pipeline', included: true },
+        { name: 'Courses & Memberships', included: true },
+        { name: 'Priority Support', included: true },
+        { name: 'Custom Integrations', included: true },
         { name: 'White-label', included: false },
       ],
-      cta: 'Start Free Trial',
+      cta: 'Start 14-Day Free Trial',
       ctaStyle: 'bg-white text-blue-600 hover:bg-slate-100',
     },
     {
       name: 'Premium Pro',
+      tier: 'premium_pro',
       icon: Star,
       monthlyPrice: 4997,
-      yearlyPrice: 3997,
-      description: 'Done-for-you service with dedicated team',
+      yearlyPrice: 4997,
+      description: 'Done-for-you managed service',
       color: 'from-purple-500 to-pink-600',
       features: [
-        { name: 'Everything in Pro', included: true },
-        { name: 'Unlimited everything', included: true },
-        { name: 'Dedicated account manager', included: true },
+        { name: 'Everything in Professional', included: true },
+        { name: 'Unlimited Contacts', included: true },
+        { name: 'Dedicated Account Manager', included: true },
         { name: 'Custom integrations', included: true },
         { name: 'Unlimited custom domains', included: true },
         { name: 'Email marketing', included: true },

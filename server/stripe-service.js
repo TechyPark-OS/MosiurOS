@@ -3,116 +3,74 @@ import Stripe from 'stripe';
 // Initialize Stripe with live key
 const stripe = new Stripe(process.env.STRIPE_LIVE_KEY);
 
-// Pricing tiers configuration
+// Pricing tiers configuration with Stripe price IDs
 const PRICING_TIERS = {
   starter: {
     name: 'Starter',
     price: 9700, // $97.00 in cents
+    priceId: process.env.STRIPE_PRICE_STARTER,
     interval: 'month',
     features: [
-      'Up to 3 funnels',
-      '10,000 contacts',
-      'Email marketing',
-      'Basic analytics',
-      'Community support'
+      '3 Funnels',
+      '10 Landing Pages',
+      '1,000 Contacts',
+      'Email Marketing',
+      'Basic Analytics',
+      'Community Support'
     ]
   },
   professional: {
     name: 'Professional',
     price: 99700, // $997.00 in cents
+    priceId: process.env.STRIPE_PRICE_PROFESSIONAL,
     interval: 'month',
     features: [
-      'Unlimited funnels',
-      'Unlimited contacts',
-      'Advanced email automation',
-      'A/B testing',
-      'Priority support',
-      'Custom integrations',
-      'Advanced analytics'
+      'Unlimited Funnels',
+      'Unlimited Landing Pages',
+      '25,000 Contacts',
+      'Advanced Email Automation',
+      'A/B Testing',
+      'CRM & Pipeline',
+      'Courses & Memberships',
+      'Priority Support',
+      'Custom Integrations'
     ]
   },
-  premium: {
-    name: 'Premium Pro - Done For You',
-    price: 499700, // $4997.00 in cents
+  premium_pro: {
+    name: 'Premium Pro',
+    price: 499700, // $4,997.00 in cents
+    priceId: process.env.STRIPE_PRICE_PREMIUM_PRO,
     interval: 'month',
     features: [
       'Everything in Professional',
-      'Dedicated account manager',
-      'Done-for-you funnel setup',
-      'Custom development',
-      'White-glove onboarding',
-      '24/7 priority support',
-      'Strategic consulting'
+      'Unlimited Contacts',
+      'Dedicated Account Manager',
+      'Done-For-You Funnel Setup',
+      'Custom Development',
+      'White-Label Options',
+      'Advanced API Access',
+      '24/7 Premium Support',
+      'Monthly Strategy Calls'
     ]
   }
 };
 
 /**
- * Create or retrieve Stripe products and prices
+ * Get pricing tiers (products already created in Stripe)
  */
 async function initializeProducts() {
-  const products = {};
-  
-  for (const [tier, config] of Object.entries(PRICING_TIERS)) {
-    try {
-      // Search for existing product
-      const existingProducts = await stripe.products.search({
-        query: `name:'TechyPark ${config.name}'`,
-      });
-      
-      let product;
-      if (existingProducts.data.length > 0) {
-        product = existingProducts.data[0];
-      } else {
-        // Create new product
-        product = await stripe.products.create({
-          name: `TechyPark ${config.name}`,
-          description: `${config.name} plan - ${config.features.join(', ')}`,
-          metadata: { tier }
-        });
-      }
-      
-      // Get or create price
-      const prices = await stripe.prices.list({
-        product: product.id,
-        active: true,
-      });
-      
-      let price;
-      if (prices.data.length > 0) {
-        price = prices.data[0];
-      } else {
-        price = await stripe.prices.create({
-          product: product.id,
-          unit_amount: config.price,
-          currency: 'usd',
-          recurring: { interval: config.interval },
-          metadata: { tier }
-        });
-      }
-      
-      products[tier] = {
-        productId: product.id,
-        priceId: price.id,
-        ...config
-      };
-    } catch (error) {
-      console.error(`Error initializing product ${tier}:`, error.message);
-    }
-  }
-  
-  return products;
+  // Products and prices are already created, just return the config
+  return PRICING_TIERS;
 }
 
 /**
- * Create a checkout session for subscription
+ * Create a checkout session for subscription with 14-day trial
  */
 async function createCheckoutSession(userId, tier, email) {
-  const products = await initializeProducts();
-  const tierConfig = products[tier];
+  const tierConfig = PRICING_TIERS[tier];
   
-  if (!tierConfig) {
-    throw new Error(`Invalid tier: ${tier}`);
+  if (!tierConfig || !tierConfig.priceId) {
+    throw new Error(`Invalid tier or missing price ID: ${tier}`);
   }
   
   const session = await stripe.checkout.sessions.create({
@@ -126,8 +84,8 @@ async function createCheckoutSession(userId, tier, email) {
       },
     ],
     mode: 'subscription',
-    success_url: `${process.env.FRONTEND_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.FRONTEND_URL}/pricing`,
+    success_url: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/pricing`,
     subscription_data: {
       trial_period_days: 14,
       metadata: {
@@ -174,11 +132,10 @@ async function cancelSubscription(subscriptionId) {
  * Update subscription (upgrade/downgrade)
  */
 async function updateSubscription(subscriptionId, newTier) {
-  const products = await initializeProducts();
-  const tierConfig = products[newTier];
+  const tierConfig = PRICING_TIERS[newTier];
   
-  if (!tierConfig) {
-    throw new Error(`Invalid tier: ${newTier}`);
+  if (!tierConfig || !tierConfig.priceId) {
+    throw new Error(`Invalid tier or missing price ID: ${newTier}`);
   }
   
   const subscription = await stripe.subscriptions.retrieve(subscriptionId);

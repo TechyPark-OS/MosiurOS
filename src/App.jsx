@@ -55,6 +55,34 @@ import Pricing from './pages/Pricing'
 import Features from './pages/Features'
 import CaseStudies from './pages/CaseStudies'
 import AdminDashboard from './pages/AdminDashboard'
+import FunnelBuilder from './pages/FunnelBuilder'
+import PageBuilder from './pages/PageBuilder'
+import ProductDetail from './pages/ProductDetail'
+import Campaigns from './pages/Campaigns'
+import CampaignEditor from './pages/CampaignEditor'
+import Subscribers from './pages/Subscribers'
+import WorkflowBuilder from './pages/WorkflowBuilder'
+import CourseBuilder from './pages/CourseBuilder'
+import ContactDetail from './pages/ContactDetail'
+import Deals from './pages/Deals'
+import Tickets from './pages/Tickets'
+import TicketDetail from './pages/TicketDetail'
+import BlogEditor from './pages/BlogEditor'
+import Orders from './pages/Orders'
+import CustomerPortal from './pages/CustomerPortal'
+import Invoices from './pages/Invoices'
+import Plans from './pages/Plans'
+import Revenue from './pages/Revenue'
+import General from './pages/General'
+import Profile from './pages/Profile'
+import SecuritySettings from './pages/Security'
+import NotificationSettings from './pages/Notifications'
+import Appearance from './pages/Appearance'
+import APIKeys from './pages/APIKeys'
+import AdminUsers from './pages/AdminUsers'
+import AdminModules from './pages/AdminModules'
+import AdminSubscriptions from './pages/AdminSubscriptions'
+import Pages from './pages/Pages'
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
 
@@ -327,6 +355,37 @@ function App() {
                 <Route path="organizations" element={<Organizations />} />
                 <Route path="admin" element={<AdminDashboard />} />
                 <Route path="settings" element={<Settings />} />
+                {/* Detail & Builder Routes */}
+                <Route path="funnels/:id" element={<FunnelBuilder />} />
+                <Route path="pages" element={<Pages />} />
+                <Route path="pages/:id" element={<PageBuilder />} />
+                <Route path="products/:id" element={<ProductDetail />} />
+                <Route path="campaigns" element={<Campaigns />} />
+                <Route path="campaigns/:id" element={<CampaignEditor />} />
+                <Route path="subscribers" element={<Subscribers />} />
+                <Route path="workflows/:id" element={<WorkflowBuilder />} />
+                <Route path="courses/:id" element={<CourseBuilder />} />
+                <Route path="contacts/:id" element={<ContactDetail />} />
+                <Route path="deals" element={<Deals />} />
+                <Route path="tickets" element={<Tickets />} />
+                <Route path="tickets/:id" element={<TicketDetail />} />
+                <Route path="blog/:id" element={<BlogEditor />} />
+                <Route path="orders" element={<Orders />} />
+                <Route path="customer-portal" element={<CustomerPortal />} />
+                <Route path="invoices" element={<Invoices />} />
+                <Route path="plans" element={<Plans />} />
+                <Route path="revenue" element={<Revenue />} />
+                {/* Settings Sub-routes */}
+                <Route path="settings/general" element={<General />} />
+                <Route path="settings/profile" element={<Profile />} />
+                <Route path="settings/security" element={<SecuritySettings />} />
+                <Route path="settings/notifications" element={<NotificationSettings />} />
+                <Route path="settings/appearance" element={<Appearance />} />
+                <Route path="settings/api-keys" element={<APIKeys />} />
+                {/* Admin Sub-routes */}
+                <Route path="admin/users" element={<AdminUsers />} />
+                <Route path="admin/modules" element={<AdminModules />} />
+                <Route path="admin/subscriptions" element={<AdminSubscriptions />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
             </Routes>

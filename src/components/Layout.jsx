@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate, Link, NavLink } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useTheme, useData, useAuth } from '../App'
 import ImpersonationBanner from './ImpersonationBanner'
@@ -204,7 +204,7 @@ function NavItem({ item, collapsed }) {
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { theme, toggleTheme } = useTheme()
+  const { darkMode, toggleDarkMode } = useTheme()
   const { user, logout } = useAuth()
   const { hasAccess } = useModules()
   const navigate = useNavigate()

@@ -321,6 +321,57 @@ class APIClient {
       method: 'POST'
     });
   }
+
+  // Tickets
+  async getTickets() { return this.request('/api/tickets') }
+  async getTicket(id) { return this.request(`/api/tickets/${id}`) }
+  async createTicket(data) { return this.request('/api/tickets', { method: 'POST', body: JSON.stringify(data) }) }
+  async updateTicket(id, data) { return this.request(`/api/tickets/${id}`, { method: 'PUT', body: JSON.stringify(data) }) }
+  async deleteTicket(id) { return this.request(`/api/tickets/${id}`, { method: 'DELETE' }) }
+
+  // Courses
+  async getCourses() { return this.request('/api/courses') }
+  async getCourse(id) { return this.request(`/api/courses/${id}`) }
+  async createCourse(data) { return this.request('/api/courses', { method: 'POST', body: JSON.stringify(data) }) }
+  async updateCourse(id, data) { return this.request(`/api/courses/${id}`, { method: 'PUT', body: JSON.stringify(data) }) }
+  async deleteCourse(id) { return this.request(`/api/courses/${id}`, { method: 'DELETE' }) }
+
+  // Blog
+  async getBlogPosts() { return this.request('/api/blog') }
+  async getBlogPost(id) { return this.request(`/api/blog/${id}`) }
+  async createBlogPost(data) { return this.request('/api/blog', { method: 'POST', body: JSON.stringify(data) }) }
+  async updateBlogPost(id, data) { return this.request(`/api/blog/${id}`, { method: 'PUT', body: JSON.stringify(data) }) }
+  async deleteBlogPost(id) { return this.request(`/api/blog/${id}`, { method: 'DELETE' }) }
+
+  // Affiliates
+  async getAffiliates() { return this.request('/api/affiliates') }
+  async createAffiliate(data) { return this.request('/api/affiliates', { method: 'POST', body: JSON.stringify(data) }) }
+
+  // API Keys
+  async getApiKeys() { return this.request('/api/api-keys') }
+  async createApiKey(data) { return this.request('/api/api-keys', { method: 'POST', body: JSON.stringify(data) }) }
+  async deleteApiKey(id) { return this.request(`/api/api-keys/${id}`, { method: 'DELETE' }) }
+
+  // Admin
+  async getAdminUsers() { return this.request('/api/admin/users') }
+  async updateUserRole(userId, role) { return this.request(`/api/admin/users/${userId}/role`, { method: 'PUT', body: JSON.stringify({ role }) }) }
+  async impersonateUser(userId) { return this.request(`/api/admin/impersonate/${userId}`, { method: 'POST' }) }
+  async getUserModules(userId) { return this.request(`/api/admin/users/${userId}/modules`) }
+  async updateUserModules(userId, modules) { return this.request(`/api/admin/users/${userId}/modules`, { method: 'PUT', body: JSON.stringify({ modules }) }) }
+
+  // Invoices
+  async getInvoices() { return this.request('/api/invoices') }
+
+  // Settings
+  async getSettings() { return this.request('/api/settings') }
+  async updateSettings(data) { return this.request('/api/settings', { method: 'PUT', body: JSON.stringify(data) }) }
+  async updateProfile(data) { return this.request('/api/auth/profile', { method: 'PUT', body: JSON.stringify(data) }) }
+
+  // Generic CRUD helper
+  async get(endpoint) { return this.request(endpoint) }
+  async post(endpoint, data) { return this.request(endpoint, { method: 'POST', body: JSON.stringify(data) }) }
+  async put(endpoint, data) { return this.request(endpoint, { method: 'PUT', body: JSON.stringify(data) }) }
+  async del(endpoint) { return this.request(endpoint, { method: 'DELETE' }) }
 }
 
 export const api = new APIClient();

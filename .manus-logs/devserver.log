@@ -427,3 +427,6 @@
 [2026-02-20T23:41:34.542Z] ➜  Network: http://169.254.0.21:5173/
 [2026-02-20T23:41:38.407Z] 6:41:38 PM [vite] ✨ new dependencies optimized: axios
 [2026-02-20T23:41:38.408Z] 6:41:38 PM [vite] ✨ optimized dependencies changed. reloading
+[2026-02-21T00:01:03.365Z] 7:01:03 PM [vite] hmr update /src/pages/DevConsole.jsx, /src/index.css
+[2026-02-21T00:02:15.863Z] 7:02:15 PM [vite] hmr update /src/components/GitPanel.jsx, /src/index.css
+[2026-02-21T00:02:21.677Z] 7:02:21 PM [vite] hmr update /src/components/GitPanel.jsx, /src/index.css

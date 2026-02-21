@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../App';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import GitPanel from '../components/GitPanel';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -11,13 +12,13 @@ export default function DevConsole() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [mode, setMode] = useState('chat'); // chat, feature, sql, debug, files
+  const [mode, setMode] = useState('chat');
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileContent, setFileContent] = useState('');
+  const [showGitPanel, setShowGitPanel] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Check if user is super admin
   useEffect(() => {
     if (!user || user.role !== 'Admin') {
       navigate('/dashboard');
@@ -73,9 +74,30 @@ export default function DevConsole() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert('File saved successfully!');
+      await autoCommitChange(selectedFile);
     } catch (error) {
       console.error('Failed to save file:', error);
       alert('Failed to save file');
+    }
+  };
+
+  const autoCommitChange = async (filePath) => {
+    try {
+      const token = localStorage.getItem('sessionToken');
+      await axios.post(
+        `${API_URL}/api/git/stage`,
+        { files: [filePath] },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const fileName = filePath.split('/').pop();
+      const message = `chore: Update ${fileName} via Dev Console`;
+      await axios.post(
+        `${API_URL}/api/git/commit`,
+        { message },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch (error) {
+      console.error('Failed to auto-commit:', error);
     }
   };
 
@@ -139,12 +161,21 @@ export default function DevConsole() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
+      {/* Git Panel Overlay */}
+      {showGitPanel && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-end">
+          <div className="w-full h-2/3 bg-gray-900">
+            <GitPanel token={localStorage.getItem('sessionToken')} onClose={() => setShowGitPanel(false)} />
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="bg-gray-800 border-b border-gray-700 px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-blue-400">🔧 Super Admin Dev Console</h1>
-            <p className="text-sm text-gray-400 mt-1">AI-Powered Development Environment</p>
+            <p className="text-sm text-gray-400 mt-1">AI-Powered Development Environment with Git Integration</p>
           </div>
           <div className="flex gap-2">
             <button
@@ -158,6 +189,12 @@ export default function DevConsole() {
 
         {/* Mode Selector */}
         <div className="flex gap-2 mt-4">
+          <button
+            onClick={() => setShowGitPanel(!showGitPanel)}
+            className="px-4 py-2 rounded-lg transition bg-purple-600 hover:bg-purple-700"
+          >
+            🔀 Git
+          </button>
           <button
             onClick={() => setMode('chat')}
             className={`px-4 py-2 rounded-lg transition ${
@@ -204,7 +241,6 @@ export default function DevConsole() {
       {/* Main Content */}
       <div className="flex h-[calc(100vh-180px)]">
         {mode === 'files' ? (
-          // File Browser Mode
           <div className="flex w-full">
             {/* File List */}
             <div className="w-1/3 bg-gray-800 border-r border-gray-700 overflow-y-auto">
@@ -233,12 +269,20 @@ export default function DevConsole() {
                 <>
                   <div className="bg-gray-800 px-4 py-3 border-b border-gray-700 flex justify-between items-center">
                     <span className="text-sm text-gray-300">{selectedFile}</span>
-                    <button
-                      onClick={saveFile}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded transition"
-                    >
-                      Save
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={saveFile}
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded transition"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => setShowGitPanel(true)}
+                        className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded transition text-sm"
+                      >
+                        Git
+                      </button>
+                    </div>
                   </div>
                   <textarea
                     value={fileContent}
@@ -255,7 +299,6 @@ export default function DevConsole() {
             </div>
           </div>
         ) : (
-          // Chat Mode
           <div className="flex-1 flex flex-col">
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4">

@@ -25,6 +25,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
     "recharts": "^2.10.3",
+    "simple-git": "^3.31.1",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

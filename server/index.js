@@ -3,8 +3,6 @@ import cors from 'cors';
 import nodemailer from 'nodemailer';
 import { userDb, sessionDb, magicLinkDb, invitationDb } from './database.js';
 import apiRoutes from './api-routes.js';
-import devConsoleRoutes from './dev-console-routes.js';
-import gitRoutes from './git-routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -791,12 +789,6 @@ app.delete('/api/invitations/:id', async (req, res) => {
 
 // ==================== MOUNT API ROUTES ====================
 app.use('/api', apiRoutes);
-
-// ==================== MOUNT DEV CONSOLE ROUTES (SUPER ADMIN ONLY) ====================
-app.use('/api/dev', devConsoleRoutes);
-
-// ==================== MOUNT GIT ROUTES (ADMIN ONLY) ====================
-app.use('/api/git', gitRoutes);
 
 // Resend invitation (admin only)
 app.post('/api/invitations/:id/resend', async (req, res) => {

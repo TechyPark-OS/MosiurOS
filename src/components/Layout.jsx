@@ -11,7 +11,7 @@ import {
   Zap, FileText, ShoppingCart, Package, CreditCard, GraduationCap,
   Crown, Send, GitBranch, Timer, UserCheck, DollarSign, Calendar,
   MessageSquare, MessagesSquare, BookOpen, Headphones, BarChart3,
-  ClipboardList, Link2, Share2, Target, Percent, Code
+  ClipboardList, Link2, Share2, Target, Percent
 } from 'lucide-react'
 
 const navigation = [
@@ -142,7 +142,6 @@ const navigation = [
     ]
   },
   { name: 'Settings', href: '/settings', icon: Settings },
-  { name: 'Dev Console', href: '/dev-console', icon: Code, adminOnly: true },
 ]
 
 function NavItem({ item, collapsed }) {
@@ -260,11 +259,9 @@ export default function Layout() {
 
         {/* Navigation */}
         <nav className="p-3 space-y-0.5 overflow-y-auto h-[calc(100vh-8rem)] scrollbar-thin">
-          {navigation
-            .filter(item => !item.adminOnly || user?.role === 'Admin')
-            .map((item) => (
-              <NavItem key={item.name} item={item} collapsed={!sidebarOpen} />
-            ))}
+          {navigation.map((item) => (
+            <NavItem key={item.name} item={item} collapsed={!sidebarOpen} />
+          ))}
         </nav>
 
         {/* User section */}

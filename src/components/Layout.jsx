@@ -1,7 +1,8 @@
-import { Outlet, NavLink, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { Outlet, useLocation, useNavigate, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { useTheme, useData, useAuth } from '../App'
-import { useNavigate } from 'react-router-dom'
+import ImpersonationBanner from './ImpersonationBanner'
+import { useModules } from '../hooks/useModules'
 import {
   LayoutDashboard, Server, Globe, Database, Shield, FolderOpen,
   HardDrive, Container, Store, Activity, Bell, Users, Building2,
@@ -142,6 +143,7 @@ const navigation = [
     ]
   },
   { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Super Admin', href: '/admin', icon: Shield, adminOnly: true },
 ]
 
 function NavItem({ item, collapsed }) {
@@ -202,10 +204,11 @@ function NavItem({ item, collapsed }) {
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { darkMode, toggleDarkMode } = useTheme()
-  const { data } = useData()
+  const { theme, toggleTheme } = useTheme()
   const { user, logout } = useAuth()
+  const { hasAccess } = useModules()
   const navigate = useNavigate()
+  const data = useData()
   
   const unreadAlerts = data.alerts.filter(a => !a.read).length
 
@@ -218,9 +221,10 @@ export default function Layout() {
     if (!user?.name) return 'U'
     return user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
   }
-
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+    <>
+      <ImpersonationBanner />
+      <div className="flex h-screen bg-slate-50 dark:bg-slate-900" style={{ marginTop: localStorage.getItem('impersonationToken') ? '48px' : '0' }}>
       {/* Mobile menu overlay */}
       {mobileMenuOpen && (
         <div 
@@ -259,7 +263,7 @@ export default function Layout() {
 
         {/* Navigation */}
         <nav className="p-3 space-y-0.5 overflow-y-auto h-[calc(100vh-8rem)] scrollbar-thin">
-          {navigation.map((item) => (
+          {navigation.filter(item => !item.adminOnly || user?.role === 'Admin').map((item) => (
             <NavItem key={item.name} item={item} collapsed={!sidebarOpen} />
           ))}
         </nav>
@@ -339,5 +343,6 @@ export default function Layout() {
         </main>
       </div>
     </div>
+    </>
   )
 }

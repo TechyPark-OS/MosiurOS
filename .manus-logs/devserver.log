@@ -318,3 +318,23 @@
 [2026-02-21T02:02:28.236Z] 
 [2026-02-21T02:02:28.237Z] ➜  Local:   http://localhost:5173/
 [2026-02-21T02:02:28.237Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-21T02:25:12.788Z] 9:25:12 PM [vite] hmr update /src/App.jsx, /src/index.css
+[2026-02-21T02:25:28.452Z] 9:25:28 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-21T02:25:40.287Z] 9:25:40 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-21T02:26:02.829Z] 9:26:02 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-21T02:26:12.713Z] 9:26:12 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-21T02:26:32.675Z] 9:26:32 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-21T02:26:40.496Z] 9:26:40 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-21T02:26:45.539Z] Dev server process group stopped
+[2026-02-21T02:26:45.554Z] ELIFECYCLE  Command failed.
+[2026-02-21T02:26:45.559Z] Dev server exited with code -15
+[2026-02-21T02:26:48.546Z] Starting dev server with command: pnpm run dev
+[2026-02-21T02:26:48.834Z] 
+[2026-02-21T02:26:48.836Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-21T02:26:48.838Z] > vite
+[2026-02-21T02:26:48.838Z] 
+[2026-02-21T02:26:49.416Z] 
+[2026-02-21T02:26:49.417Z] VITE v5.4.21  ready in 546 ms
+[2026-02-21T02:26:49.418Z] 
+[2026-02-21T02:26:49.418Z] ➜  Local:   http://localhost:5173/
+[2026-02-21T02:26:49.419Z] ➜  Network: http://169.254.0.21:5173/

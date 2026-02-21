@@ -54,6 +54,7 @@ import Landing from './pages/Landing'
 import Pricing from './pages/Pricing'
 import Features from './pages/Features'
 import CaseStudies from './pages/CaseStudies'
+import AdminDashboard from './pages/AdminDashboard'
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
 
@@ -324,6 +325,7 @@ function App() {
                 {/* Management */}
                 <Route path="users" element={<Users />} />
                 <Route path="organizations" element={<Organizations />} />
+                <Route path="admin" element={<AdminDashboard />} />
                 <Route path="settings" element={<Settings />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>

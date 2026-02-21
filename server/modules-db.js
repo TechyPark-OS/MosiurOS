@@ -262,4 +262,5 @@ export const impersonationDb = {
   }
 };
 
+export { AVAILABLE_MODULES, TIER_MODULES };
 export default { moduleDb, adminLogDb, impersonationDb, AVAILABLE_MODULES, TIER_MODULES };

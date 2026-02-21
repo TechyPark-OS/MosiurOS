@@ -298,8 +298,10 @@
 - [x] Build production bundle
 - [x] Test production build locally
 - [x] Deploy frontend to Vercel (techypark-engine.vercel.app)
-- [ ] Configure custom domain app.mosiur.com
-- [ ] Deploy backend API to crm.mosiur.com
-- [ ] Configure Stripe webhook URL
+- [x] Create super admin setup script
+- [x] Document deployment process
+- [ ] Configure custom domain app.mosiur.com (manual in Vercel Dashboard)
+- [ ] Configure custom domain crm.mosiur.com (manual in Vercel Dashboard)
+- [ ] Configure Stripe webhook URL (manual in Stripe Dashboard)
+- [ ] Run setup:admin script after first deployment
 - [ ] Test complete flow on production
-- [ ] Create super admin account in production

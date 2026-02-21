@@ -5,6 +5,7 @@ import { userDb, sessionDb, magicLinkDb, invitationDb } from './database.js';
 import apiRoutes from './api-routes.js';
 import stripeRoutes from './stripe-routes.js';
 import adminRoutes from './admin-routes.js';
+import { seedSuperAdmin } from './seed-admin.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -842,6 +843,13 @@ app.listen(PORT, () => {
   console.log(`TechyPark Engine API server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/api/health`);
   console.log(`Database initialized with user management`);
+  
+  // Seed super admin after database is initialized
+  try {
+    seedSuperAdmin();
+  } catch (error) {
+    console.error('Failed to seed super admin:', error);
+  }
   
   if (!process.env.ZEPTOMAIL_API_KEY) {
     console.warn('⚠️  Warning: ZEPTOMAIL_API_KEY is not set. Email sending will fail.');

@@ -305,3 +305,10 @@
 - [ ] Configure Stripe webhook URL (manual in Stripe Dashboard)
 - [ ] Run setup:admin script after first deployment
 - [ ] Test complete flow on production
+
+
+## 🔧 Routing & Deployment Fixes
+- [x] Fix sub-pages routing on Vercel deployment
+- [x] Configure vercel.json for SPA routing
+- [x] Test all nested routes on production
+- [x] Deploy updated build to Vercel

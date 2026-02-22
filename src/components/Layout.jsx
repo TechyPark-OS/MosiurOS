@@ -12,32 +12,58 @@ import {
   Zap, FileText, ShoppingCart, Package, CreditCard, GraduationCap,
   Crown, Send, GitBranch, Timer, UserCheck, DollarSign, Calendar,
   MessageSquare, MessagesSquare, BookOpen, Headphones, BarChart3,
-  ClipboardList, Link2, Share2, Target, Percent
+  ClipboardList, Link2, Share2, Target, Percent,
+  // New icons for added routes
+  ShoppingBag, FileCheck, Layers, TrendingUp,
+  Megaphone, UserPlus, PenTool, LayoutGrid
 } from 'lucide-react'
+
+// Module IDs map to sidebar sections for permission filtering
+const MODULE_MAP = {
+  'funnels_pages': 'Funnels & Pages',
+  'store_products': 'Store & Products',
+  'courses_members': 'Courses & Members',
+  'marketing': 'Marketing',
+  'crm_sales': 'CRM & Sales',
+  'community_content': 'Community & Content',
+  'analytics_tools': 'Analytics & Tools',
+  'revenue': 'Revenue',
+  'infrastructure': 'Infrastructure',
+  'domains_email': 'Domains & Email',
+  'security': 'Security',
+  'storage': 'Storage',
+  'monitoring': 'Monitoring',
+  'management': 'Management',
+}
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { 
     name: 'Funnels & Pages', 
     icon: Zap,
+    moduleId: 'funnels_pages',
     children: [
       { name: 'Sales Funnels', href: '/funnels', icon: Zap },
       { name: 'Landing Pages', href: '/landing-pages', icon: FileText },
+      { name: 'Pages', href: '/pages', icon: LayoutGrid },
       { name: 'Countdown Funnels', href: '/countdown', icon: Timer },
     ]
   },
   { 
     name: 'Store & Products', 
     icon: ShoppingCart,
+    moduleId: 'store_products',
     children: [
       { name: 'Ecommerce Store', href: '/store', icon: Store },
       { name: 'Products', href: '/products', icon: Package },
       { name: 'Smart Checkout', href: '/checkout', icon: CreditCard },
+      { name: 'Orders', href: '/orders', icon: ShoppingBag },
     ]
   },
   { 
     name: 'Courses & Members', 
     icon: GraduationCap,
+    moduleId: 'courses_members',
     children: [
       { name: 'Online Courses', href: '/courses', icon: GraduationCap },
       { name: 'Memberships', href: '/memberships', icon: Crown },
@@ -46,8 +72,11 @@ const navigation = [
   { 
     name: 'Marketing', 
     icon: Send,
+    moduleId: 'marketing',
     children: [
       { name: 'Email Marketing', href: '/email-marketing', icon: Send },
+      { name: 'Campaigns', href: '/campaigns', icon: Megaphone },
+      { name: 'Subscribers', href: '/subscribers', icon: UserPlus },
       { name: 'Email Templates', href: '/email-templates', icon: FileText },
       { name: 'Workflows', href: '/workflows', icon: GitBranch },
       { name: 'A/B Testing', href: '/ab-testing', icon: Percent },
@@ -57,9 +86,12 @@ const navigation = [
   { 
     name: 'CRM & Sales', 
     icon: Target,
+    moduleId: 'crm_sales',
     children: [
       { name: 'Contacts', href: '/contacts', icon: UserCheck },
+      { name: 'Deals', href: '/deals', icon: Target },
       { name: 'Opportunities', href: '/opportunities', icon: DollarSign },
+      { name: 'Tickets', href: '/tickets', icon: Headphones },
       { name: 'Appointments', href: '/appointments', icon: Calendar },
       { name: 'Message Hub', href: '/message-hub', icon: MessageSquare },
     ]
@@ -67,25 +99,32 @@ const navigation = [
   { 
     name: 'Community & Content', 
     icon: MessagesSquare,
+    moduleId: 'community_content',
     children: [
       { name: 'Community', href: '/community', icon: MessagesSquare },
       { name: 'Blog', href: '/blog', icon: BookOpen },
       { name: 'Customer Center', href: '/customer-center', icon: Headphones },
+      { name: 'Customer Portal', href: '/customer-portal', icon: FileCheck },
     ]
   },
   { 
     name: 'Analytics & Tools', 
     icon: BarChart3,
+    moduleId: 'analytics_tools',
     children: [
       { name: 'Analytics', href: '/analytics', icon: BarChart3 },
+      { name: 'Revenue', href: '/revenue', icon: TrendingUp },
       { name: 'Short Links', href: '/short-links', icon: Link2 },
     ]
   },
   { 
-    name: 'Revenue', 
+    name: 'Billing & Payments', 
     icon: DollarSign,
+    moduleId: 'revenue',
     children: [
       { name: 'Payments', href: '/payments', icon: CreditCard },
+      { name: 'Invoices', href: '/invoices', icon: Receipt },
+      { name: 'Plans', href: '/plans', icon: Layers },
       { name: 'Affiliates', href: '/affiliates', icon: Share2 },
       { name: 'Billing', href: '/billing', icon: Receipt },
     ]
@@ -93,6 +132,7 @@ const navigation = [
   {
     name: 'Infrastructure',
     icon: Server,
+    moduleId: 'infrastructure',
     children: [
       { name: 'Servers', href: '/servers', icon: Server },
       { name: 'Sites', href: '/sites', icon: Globe },
@@ -103,6 +143,7 @@ const navigation = [
   { 
     name: 'Domains & Email', 
     icon: Mail,
+    moduleId: 'domains_email',
     children: [
       { name: 'DNS Manager', href: '/dns', icon: Globe },
       { name: 'Email Hosting', href: '/email', icon: Mail },
@@ -111,6 +152,7 @@ const navigation = [
   { 
     name: 'Security', 
     icon: Shield,
+    moduleId: 'security',
     children: [
       { name: 'SSL Certificates', href: '/ssl', icon: Lock },
       { name: 'Firewall', href: '/firewall', icon: Flame },
@@ -119,6 +161,7 @@ const navigation = [
   { 
     name: 'Storage', 
     icon: FolderOpen,
+    moduleId: 'storage',
     children: [
       { name: 'File Manager', href: '/files', icon: FolderOpen },
       { name: 'Databases', href: '/databases', icon: Database },
@@ -128,6 +171,7 @@ const navigation = [
   { 
     name: 'Monitoring', 
     icon: Activity,
+    moduleId: 'monitoring',
     children: [
       { name: 'Metrics', href: '/monitoring', icon: Activity },
       { name: 'Alerts', href: '/alerts', icon: Bell },
@@ -136,10 +180,10 @@ const navigation = [
   { 
     name: 'Management', 
     icon: Users,
+    moduleId: 'management',
     children: [
       { name: 'Users', href: '/users', icon: Users },
       { name: 'Organizations', href: '/organizations', icon: Building2 },
-      { name: 'CRM (Legacy)', href: '/crm', icon: Users },
     ]
   },
   { name: 'Settings', href: '/settings', icon: Settings },
@@ -150,8 +194,22 @@ function NavItem({ item, collapsed }) {
   const [expanded, setExpanded] = useState(false)
   const location = useLocation()
   
+  // Auto-expand if a child is active
+  useEffect(() => {
+    if (item.children) {
+      const isChildActive = item.children.some(child => 
+        location.pathname === `/dashboard${child.href}` || 
+        location.pathname.startsWith(`/dashboard${child.href}/`)
+      )
+      if (isChildActive) setExpanded(true)
+    }
+  }, [location.pathname])
+  
   if (item.children) {
-    const isActive = item.children.some(child => location.pathname === child.href)
+    const isActive = item.children.some(child => 
+      location.pathname === `/dashboard${child.href}` || 
+      location.pathname.startsWith(`/dashboard${child.href}/`)
+    )
     
     return (
       <div>
@@ -210,7 +268,7 @@ export default function Layout() {
   const navigate = useNavigate()
   const data = useData()
   
-  const unreadAlerts = data.alerts.filter(a => !a.read).length
+  const unreadAlerts = data?.data?.alerts?.filter(a => !a.read).length || 0
 
   const handleLogout = () => {
     logout()
@@ -221,6 +279,18 @@ export default function Layout() {
     if (!user?.name) return 'U'
     return user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
   }
+
+  // Filter navigation based on user role and module access
+  const filteredNavigation = navigation.filter(item => {
+    // Admin-only items
+    if (item.adminOnly && user?.role !== 'Admin') return false
+    // Module-based filtering: Admin sees all, others check module access
+    if (item.moduleId && user?.role !== 'Admin') {
+      return hasAccess(item.moduleId)
+    }
+    return true
+  })
+
   return (
     <>
       <ImpersonationBanner />
@@ -263,7 +333,7 @@ export default function Layout() {
 
         {/* Navigation */}
         <nav className="p-3 space-y-0.5 overflow-y-auto h-[calc(100vh-8rem)] scrollbar-thin">
-          {navigation.filter(item => !item.adminOnly || user?.role === 'Admin').map((item) => (
+          {filteredNavigation.map((item) => (
             <NavItem key={item.name} item={item} collapsed={!sidebarOpen} />
           ))}
         </nav>
@@ -285,7 +355,7 @@ export default function Layout() {
       </aside>
 
       {/* Main content */}
-      <div className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}`}>
+      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}`}>
         {/* Top bar */}
         <header className="h-16 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
           <div className="flex items-center gap-4">

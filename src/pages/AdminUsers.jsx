@@ -56,7 +56,7 @@ export default function AdminUsers() {
           {filtered.map(user => (
             <tr key={user.id} className="border-b border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30">
               <td className="px-4 py-3"><div><p className="font-medium text-sm text-slate-900 dark:text-white">{user.name}</p><p className="text-xs text-slate-500">{user.email}</p></div></td>
-              <td className="px-4 py-3"><select value={user.role} onChange={e => updateRole(user.id, e.target.value)} className="px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs"><option value="Admin">Admin</option><option value="User">User</option><option value="Reseller">Reseller</option></select></td>
+              <td className="px-4 py-3"><select value={user.role} onChange={e => updateRole(user.id, e.target.value)} className="px-2 py-1 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-xs"><option value="Admin">Admin</option><option value="Reseller">Reseller</option><option value="User">User</option><option value="Client">Client</option></select></td>
               <td className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">{user.plan}</td>
               <td className="px-4 py-3"><span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusColor(user.status)}`}>{user.status}</span></td>
               <td className="px-4 py-3 text-sm text-slate-500">{user.last_login}</td>

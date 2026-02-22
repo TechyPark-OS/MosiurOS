@@ -425,3 +425,22 @@
 [2026-02-21T04:31:40.243Z] 11:31:40 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
 [2026-02-21T04:31:53.829Z] 11:31:53 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
 [2026-02-21T04:47:12.301Z] 11:47:12 PM [vite] hmr update /src/App.jsx, /src/index.css
+[2026-02-21T05:23:13.772Z] Dev server process group stopped
+[2026-02-21T05:23:13.787Z] ELIFECYCLE  Command failed.
+[2026-02-21T05:23:13.792Z] Dev server exited with code -15
+[2026-02-21T05:23:16.781Z] Starting dev server with command: pnpm run dev
+[2026-02-21T05:23:17.042Z] 
+[2026-02-21T05:23:17.043Z] > techypark-engine@1.0.0 dev /home/ubuntu/techypark-engine
+[2026-02-21T05:23:17.043Z] > vite
+[2026-02-21T05:23:17.044Z] 
+[2026-02-21T05:23:17.235Z] 
+[2026-02-21T05:23:17.236Z] VITE v5.4.21  ready in 165 ms
+[2026-02-21T05:23:17.236Z] 
+[2026-02-21T05:23:17.236Z] ➜  Local:   http://localhost:5173/
+[2026-02-21T05:23:17.237Z] ➜  Network: http://169.254.0.21:5173/
+[2026-02-22T01:34:26.102Z] 8:34:26 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-22T01:36:04.364Z] 8:36:04 PM [vite] hmr update /src/App.jsx, /src/index.css
+[2026-02-22T01:36:33.093Z] 8:36:33 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-22T01:36:40.465Z] 8:36:40 PM [vite] hmr update /src/pages/AdminUsers.jsx, /src/index.css
+[2026-02-22T01:37:57.632Z] 8:37:57 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css
+[2026-02-22T01:38:15.159Z] 8:38:15 PM [vite] hmr update /src/components/Layout.jsx, /src/index.css

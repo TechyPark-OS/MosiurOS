@@ -83,6 +83,8 @@ import AdminUsers from './pages/AdminUsers'
 import AdminModules from './pages/AdminModules'
 import AdminSubscriptions from './pages/AdminSubscriptions'
 import Pages from './pages/Pages'
+import SettingsLayout from './components/SettingsLayout'
+import AdminLayout from './components/AdminLayout'
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
 
@@ -353,8 +355,24 @@ function App() {
                 {/* Management */}
                 <Route path="users" element={<Users />} />
                 <Route path="organizations" element={<Organizations />} />
-                <Route path="admin" element={<AdminDashboard />} />
-                <Route path="settings" element={<Settings />} />
+
+                {/* Settings with sub-routes */}
+                <Route path="settings" element={<SettingsLayout />}>
+                  <Route index element={<General />} />
+                  <Route path="general" element={<General />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="security" element={<SecuritySettings />} />
+                  <Route path="notifications" element={<NotificationSettings />} />
+                  <Route path="appearance" element={<Appearance />} />
+                  <Route path="api-keys" element={<APIKeys />} />
+                </Route>
+                {/* Admin with sub-routes */}
+                <Route path="admin" element={<AdminLayout />}>
+                  <Route index element={<AdminUsers />} />
+                  <Route path="users" element={<AdminUsers />} />
+                  <Route path="modules" element={<AdminModules />} />
+                  <Route path="subscriptions" element={<AdminSubscriptions />} />
+                </Route>
                 {/* Detail & Builder Routes */}
                 <Route path="funnels/:id" element={<FunnelBuilder />} />
                 <Route path="pages" element={<Pages />} />
@@ -375,17 +393,7 @@ function App() {
                 <Route path="invoices" element={<Invoices />} />
                 <Route path="plans" element={<Plans />} />
                 <Route path="revenue" element={<Revenue />} />
-                {/* Settings Sub-routes */}
-                <Route path="settings/general" element={<General />} />
-                <Route path="settings/profile" element={<Profile />} />
-                <Route path="settings/security" element={<SecuritySettings />} />
-                <Route path="settings/notifications" element={<NotificationSettings />} />
-                <Route path="settings/appearance" element={<Appearance />} />
-                <Route path="settings/api-keys" element={<APIKeys />} />
-                {/* Admin Sub-routes */}
-                <Route path="admin/users" element={<AdminUsers />} />
-                <Route path="admin/modules" element={<AdminModules />} />
-                <Route path="admin/subscriptions" element={<AdminSubscriptions />} />
+
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
             </Routes>

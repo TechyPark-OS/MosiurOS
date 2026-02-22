@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import Servers from './pages/Servers'
@@ -390,6 +391,7 @@ function App() {
               </Route>
             </Routes>
           </div>
+          <VercelAnalytics />
         </DataContext.Provider>
       </ThemeContext.Provider>
     </AuthContext.Provider>

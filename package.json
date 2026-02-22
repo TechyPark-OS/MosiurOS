@@ -12,6 +12,7 @@
     "setup:admin": "node setup-admin.js"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^1.3.1",
     "better-sqlite3": "^12.6.2",
     "clsx": "^2.0.0",
     "cors": "^2.8.6",

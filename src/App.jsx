@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import Servers from './pages/Servers'
@@ -389,6 +390,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
             </Routes>
+            <SpeedInsights />
           </div>
         </DataContext.Provider>
       </ThemeContext.Provider>

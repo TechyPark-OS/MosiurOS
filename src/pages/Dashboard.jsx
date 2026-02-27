@@ -1,3 +1,21 @@
+import { useState, useEffect } from 'react';
+
+export default function Dashboard() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    // Add timeout and error handling
+    const timer = setTimeout(() => {
+      if (loading) {
+        setError('Dashboard components taking longer than expected to load');
+      }
+    }, 10000);
+    
+    return () => clearTimeout(timer);
+  }, [loading]);
+  
+  // ... rest of component
 import { useData, useAuth } from '../App'
 import { NavLink } from 'react-router-dom'
 import {
@@ -287,4 +305,5 @@ export default function Dashboard() {
       </div>
     </div>
   )
+}
 }

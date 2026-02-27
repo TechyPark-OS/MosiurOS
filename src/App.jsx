@@ -86,7 +86,9 @@ import Pages from './pages/Pages'
 import SettingsLayout from './components/SettingsLayout'
 import AdminLayout from './components/AdminLayout'
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://3000-ira245erppsrdirm200d8-23969b88.us1.manus.computer';
+const API_URL = import.meta.env.VITE_API_URL || 
+                (typeof window !== 'undefined' ? window.location.origin : '') ||
+                'https://your-default-api-url.vercel.app';
 
 // Auth Context
 const AuthContext = createContext()
